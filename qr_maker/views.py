@@ -12,6 +12,9 @@ from PIL import Image
 def index(request):
     return render(request,'index.html')
 
+def dashboard(request):
+    return render(request,'dashboard.html')
+
 def qr(request):
     if request.method == "POST":
         # create a form instance and populate it with data from the request:

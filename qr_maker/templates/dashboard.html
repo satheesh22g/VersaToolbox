@@ -1,0 +1,124 @@
+<!-- 
+
+<div style="text-align: center;">
+
+    <h1>
+        Hi
+    
+    </h1>
+    
+    <a href="/qr/">QR Maker</a>
+    
+    {{url}}
+
+</div> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #e0e0e0;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        .card p {
+            color: #777;
+            margin-top: 10px;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>My Dashboard</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+    <div class="dashboard">
+        <a href="/qr/" class="card">
+            <h2>QR Scanner</h2>
+            <p> Transform Information into Scannable Codes </p>
+            <img src="image1.jpg" alt="Image 1">
+        </a>
+        <a href="widget2.html" class="card">
+            <h2>Widget 2</h2>
+            <p>This is the content of widget 2.</p>
+            <img src="image2.jpg" alt="Image 2">
+        </a>
+        <a href="widget3.html" class="card">
+            <h2>Widget 3</h2>
+            <p>This is the content of widget 3.</p>
+            <img src="image3.jpg" alt="Image 3">
+        </a>
+    </div>
+</body>
+</html>
