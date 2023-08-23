@@ -3,9 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 import qrcode 
 import png
 from pyqrcode import QRCode 
-from .forms import NameForm
+from .forms import QRForm,YtMp3Form
 from PIL import Image
-
+import youtube_dl
 # Create your views here.
 
 
@@ -18,7 +18,7 @@ def dashboard(request):
 def qr(request):
     if request.method == "POST":
         # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
+        form = QRForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
             url = form.cleaned_data["url"]
@@ -28,5 +28,28 @@ def qr(request):
             response['Content-Disposition'] = "attachment; filename=%s" %  "qr.jpg"
             return response
     else:
-        form = NameForm()
+        form = QRForm()
     return render(request, "qr.html", {"form": form})
+
+def ytmp3(request):
+    if request.method == "POST":
+        # create a form instance and populate it with data from the request:
+        form = YtMp3Form(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            url = form.cleaned_data["url"]
+            ydl_opts = {
+                'format': 'bestaudio/best',
+                'postprocessors': [{
+                    'key': 'FFmpegExtractAudio',
+                    'preferredcodec': 'mp3',
+                    'preferredquality': '192',
+                }],
+            }
+            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            
+                ydl.download([url])
+    else:
+        form = YtMp3Form()
+    return render(request, "ytmp3.html", {"form": form})
+

@@ -6,4 +6,5 @@ urlpatterns = [
     path("", views.index, name="index"),
     path('dashboard/', views.dashboard),
     path('qr/',views.qr),
+    path('ytmp3/',views.ytmp3),
 ]
