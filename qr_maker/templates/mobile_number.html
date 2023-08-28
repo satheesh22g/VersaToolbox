@@ -1,10 +1,10 @@
 
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube to Mp3 Music Converters</title>
+    <title>Know Mobile Number Details</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +13,6 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background: linear-gradient(45deg, #f0f0f0, #d1d1d1);
             background-size: 400% 400%;
             animation: gradientAnimation 10s infinite alternate;
         }
@@ -78,20 +77,85 @@
         .submit-button:focus {
             outline: none;
         }
+        .center-container {
+      text-align: center;
+    }
+
+    /* Add some styling to the table for demonstration */
+    table {
+      border-collapse: collapse;
+      border: 1px solid #ccc;
+      display: inline-block;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+            tr:hover {background-color: #D6EEEE;}
+        p {
+            padding-top: 5%;
+            font-size: smaller;
+        }
     </style>
 </head>
 <body>
     <div class="content">
-        <div class="title">YouTube to Mp3 Music Converter</div>
-        <form action="/ytmp3/" method="post">
+    {% if mobileno %}
+
+    <h1 style="text-align: center;"> Mobile Number Details </h1></br>
+    <table class="center-container">
+
+        <tr>
+          <td>Country Code</td>
+          <td>{{mobileno.country_code}}</td>
+      
+        </tr>
+        <tr>
+          <td>Mobile Number</td>
+          <td>{{mobileno.national_number}}</td>
+      
+        </tr>
+        <tr>
+          <td>Carrier Name</td>
+          <td>{{cr}}</td>
+      
+        </tr>
+        <tr>
+          <td>Country</td>
+          <td>{{country}}</td>
+      
+        </tr>
+        <tr>
+            <td>Valid</td>
+            <td>{{valid}}</td>
+        
+          </tr>
+          <tr>
+            <td>Time Zone</td>
+            <td>{{tz}}</td>
+        
+          </tr>
+      </table>
+      <p> Note: These Details may not be accurate.</p>
+      <a href="/mobile_number/">back</a>
+    {% else %}
+    
+        <div class="title">Fetch Phone Number Details</div>
+        <form action="/mobile_number/" method="post">
             {% csrf_token %}
         <div class="input-container">
-            
+            <p> Enter Mobile Number with Country code</p>
             {{ form }}
             
         </div>
         <input type="submit" value="Submit" class="submit-button" id="btnsubmit" onclick="submitForm()">
      </form>
     </div>
+    
+    {% endif %}
+
 </body>
 </html>

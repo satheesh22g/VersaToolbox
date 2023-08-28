@@ -11,7 +11,7 @@
     
     {{url}}
 
-</div> -->
+</div> =
 
 <!DOCTYPE html>
 <html lang="en">
@@ -73,6 +73,7 @@
             text-decoration: none;
             color: #333;
             display: block;
+            
         }
 
         .card:hover {
@@ -100,7 +101,21 @@
             max-width: 100%;
             height: auto;
             margin: 0 auto;
+            width: 150px;
+            height: 80px;
         }
+
+        .paragraph {
+            position: static;
+            bottom: 0;
+            width: 100%;
+            padding: 10px;
+        }
+        .paragraph p {
+            margin-bottom: 0;
+        }
+
+
     </style>
 </head>
 <body>
@@ -115,18 +130,25 @@
     <div class="dashboard">
         <a href="/qr/" class="card">
             <h2>QR Scanner</h2>
-            <img src="https://img.freepik.com/premium-vector/happy-baby-qr-code-cartoon-character_152558-82203.jpg" alt="Image 1" class="center-image" width="150" height="80">
+            
+            <img src="https://img.freepik.com/premium-vector/happy-baby-qr-code-cartoon-character_152558-82203.jpg" alt="Image 1" class="center-image">
+            <div class="paragraph">
             <p> Transform Information into Scannable Codes </p>
+            </div>
         </a>
         <a href="/ytmp3/" class="card">
-            <h2>Widget 2</h2>
-            <p>This is the content of widget 2.</p>
-            <img src="image2.jpg" alt="Image 2">
+            <h2>YouTube to Mp3 Music Converter</h2>
+            <img src="https://cdn.setapp.com/blog/images/how-to-convert-youtube-to-mp3-1920-646.webp" alt="Image 2" class="center-imag">
+            <div class="paragraph">
+            <p>Echoes of Creativity: Sculpt Your Playlist with this YouTube to MP3 Converter</p>
+            </div>
         </a>
         <a href="widget3.html" class="card">
-            <h2>Widget 3</h2>
-            <p>This is the content of widget 3.</p>
-            <img src="image3.jpg" alt="Image 3">
+            <h2>Fetch Phone Number Details</h2>
+            <img src="https://www.virtualpbx.com/wp-content/uploads/2021/08/addNumbers2-1024x796.png" alt="Image 3" class="center-image">
+            <div class="paragraph">
+            <p>Decode the Story Behind Every Number: Your Go-To Phone Number Information Source!.</p>
+            </div>
         </a>
 
         <a href="/qr/" class="card">
@@ -146,5 +168,195 @@
         </a>
 
     </div>
+</body>
+</html>
+ -->
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Bootstrap Cards</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+         body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        h2
+        {
+            text-align: center;
+        }
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #e0e0e0;
+        }
+   
+    .card img {
+      width: 100%;
+      height: 150px; /* Set a fixed height for the image */
+      object-fit: contain; /* Crop the image to fit the container */
+    }
+
+    .card {
+      border: none;
+      border-radius: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 300px; /* Set a fixed height for the card */
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      max-height: 150px; /* Set a maximum height for the image */
+      object-fit: contain;
+    }
+
+    .card-body {
+      padding: 15px;
+    }
+     
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px; /* Set a fixed height for the image */
+      object-fit: contain; /* Fit the image within the container */
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    .card-body {
+      padding: 15px;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .card-text {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>My Dashboard</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4 mb-4">
+        
+      <div class="card" onclick="location.href='/qr/'">
+        <h5 class="card-header text-center">QR Scanner</h5>
+        <img src="https://img.freepik.com/premium-vector/happy-baby-qr-code-cartoon-character_152558-82203.jpg" class="card-img-top" alt="Image 1">
+        <div class="card-body">
+          <p class="card-text">Transform Information into Scannable Codes</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card" onclick="location.href='/ytmp3/'">
+          <h5 class="card-header text-center">YouTube to Mp3 Music Converter</h5>
+          <img src="https://cdn.setapp.com/blog/images/how-to-convert-youtube-to-mp3-1920-646.webp" class="card-img-top" alt="Image 1">
+          <div class="card-body">
+            <p class="card-text">Echoes of Creativity: Sculpt Your Playlist with this YouTube to MP3 Converter.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card" onclick="location.href='/ytmp3/'">
+          <h5 class="card-header text-center">PDF to DOCX Converter</h5>
+          <img src="https://www.virtualpbx.com/wp-content/uploads/2021/08/addNumbers2-1024x796.png" class="card-img-top" alt="Image 1">
+          <div class="card-body">
+            <p class="card-text"></p>
+          </div>
+        </div>
+      </div>
+    <!-- Repeat the above card structure for the remaining cards -->
+  </div>
+  <div class="row">
+    <div class="col-md-4 mb-4">
+        
+      <div class="card" onclick="location.href='/qr/'">
+        <h5 class="card-header text-center">QR Scanner</h5>
+        <img src="https://img.freepik.com/premium-vector/happy-baby-qr-code-cartoon-character_152558-82203.jpg" class="card-img-top" alt="Image 1">
+        <div class="card-body">
+          <p class="card-text">Transform Information into Scannable Codes</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+          <h5 class="card-header text-center">YouTube to Mp3 Music Converter</h5>
+          <img src="https://cdn.setapp.com/blog/images/how-to-convert-youtube-to-mp3-1920-646.webp" class="card-img-top" alt="Image 1">
+          <div class="card-body">
+            <p class="card-text">Echoes of Creativity: Sculpt Your Playlist with this YouTube to MP3 Converter.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card" onclick="location.href='/mobile_number/'">
+          <h5 class="card-header text-center">Fetch Phone Number Details</h5>
+          <img src="https://www.virtualpbx.com/wp-content/uploads/2021/08/addNumbers2-1024x796.png" class="card-img-top" alt="Image 1">
+          <div class="card-body">
+            <p class="card-text">Decode the Story Behind Every Number: Your Go-To Phone Number Information Source!.</p>
+          </div>
+        </div>
+      </div>
+    <!-- Repeat the above card structure for the remaining cards -->
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

@@ -7,4 +7,5 @@ urlpatterns = [
     path('dashboard/', views.dashboard),
     path('qr/',views.qr),
     path('ytmp3/',views.ytmp3),
+    path('mobile_number/',views.mobile_number),
 ]
