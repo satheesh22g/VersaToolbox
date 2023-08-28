@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-import qrcode 
-import png
-from pyqrcode import QRCode 
+import qrcode
 from .forms import QRForm,YtMp3Form,MobileForm
 from PIL import Image
 import youtube_dl
