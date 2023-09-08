@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 import qrcode
-from .forms import QRForm,YtMp3Form,MobileForm
+from .forms import QRForm,YtMp3Form,MobileForm,ZodiacForm
 from PIL import Image
 import youtube_dl
 import phonenumbers
@@ -76,3 +76,48 @@ def mobile_number(request):
     else:
         form = MobileForm()
     return render(request, "mobile_number.html", {"form": form,"mobileno":mobileno,"cr":cr,"tz":tz,"country":country,"valid":valid})
+
+
+
+
+def zodiac_sign(request):
+    astro_sign=None
+    if request.method == "POST":
+        # create a form instance and populate it with data from the request:
+        form = ZodiacForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            date_input = form.cleaned_data["date_input"]
+            day = int(date_input.strftime("%d"))
+            month = int(date_input.strftime("%m"))
+            if month == 12: 
+                astro_sign = 'Sagittarius' if (day < 22) else 'capricorn'
+            elif month == 1: 
+                astro_sign = 'Capricorn' if (day < 20) else 'aquarius'
+            elif month == 2: 
+                astro_sign = 'Aquarius' if (day < 19) else 'pisces'
+            elif month == 3: 
+                astro_sign = 'Pisces' if (day < 21) else 'aries'
+            elif month == 4: 
+                astro_sign = 'Aries' if (day < 20) else 'taurus'
+            elif month == 5: 
+                astro_sign = 'Taurus' if (day < 21) else 'gemini'
+            elif month == 6: 
+                astro_sign = 'Gemini' if (day < 21) else 'cancer'
+            elif month == 7: 
+                astro_sign = 'Cancer' if (day < 23) else 'leo'
+            elif month == 8: 
+                astro_sign = 'Leo' if (day < 23) else 'virgo'
+            elif month == 9: 
+                astro_sign = 'Virgo' if (day < 23) else 'libra'
+            elif month == 10: 
+                astro_sign = 'Libra' if (day < 23) else 'scorpio'
+            elif month == 11: 
+                astro_sign = 'scorpio' if (day < 22) else 'sagittarius'
+            print(astro_sign)
+    else:
+        form = ZodiacForm()
+    return render(request, "zodiac.html", {"form": form,"astro_sign":astro_sign})
+
+def about(request):
+    return render(request, "about.html")

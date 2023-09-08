@@ -1,183 +1,10 @@
-<!-- 
-
-<div style="text-align: center;">
-
-    <h1>
-        Hi
-    
-    </h1>
-    
-    <a href="/qr/">QR Maker</a>
-    
-    {{url}}
-
-</div> =
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-        h2
-        {
-            text-align: center;
-        }
-        .navbar {
-            background-color: #333;
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-        }
-
-        .navbar h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        .navbar a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        .navbar a:hover {
-            color: #e0e0e0;
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .card {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            color: #333;
-            display: block;
-            
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .card h2 {
-            margin: 0;
-            color: #333;
-        }
-
-        .card p {
-            color: #777;
-            margin-top: 10px;
-        }
-
-        .card img {
-            max-width: 100%;
-            height: auto;
-            margin-top: 10px;
-        }
-           .center-image {
-            display: block;
-            max-width: 100%;
-            height: auto;
-            margin: 0 auto;
-            width: 150px;
-            height: 80px;
-        }
-
-        .paragraph {
-            position: static;
-            bottom: 0;
-            width: 100%;
-            padding: 10px;
-        }
-        .paragraph p {
-            margin-bottom: 0;
-        }
-
-
-    </style>
-</head>
-<body>
-    <div class="navbar">
-        <h1>My Dashboard</h1>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </nav>
-    </div>
-    <div class="dashboard">
-        <a href="/qr/" class="card">
-            <h2>QR Scanner</h2>
-            
-            <img src="https://img.freepik.com/premium-vector/happy-baby-qr-code-cartoon-character_152558-82203.jpg" alt="Image 1" class="center-image">
-            <div class="paragraph">
-            <p> Transform Information into Scannable Codes </p>
-            </div>
-        </a>
-        <a href="/ytmp3/" class="card">
-            <h2>YouTube to Mp3 Music Converter</h2>
-            <img src="https://cdn.setapp.com/blog/images/how-to-convert-youtube-to-mp3-1920-646.webp" alt="Image 2" class="center-imag">
-            <div class="paragraph">
-            <p>Echoes of Creativity: Sculpt Your Playlist with this YouTube to MP3 Converter</p>
-            </div>
-        </a>
-        <a href="widget3.html" class="card">
-            <h2>Fetch Phone Number Details</h2>
-            <img src="https://www.virtualpbx.com/wp-content/uploads/2021/08/addNumbers2-1024x796.png" alt="Image 3" class="center-image">
-            <div class="paragraph">
-            <p>Decode the Story Behind Every Number: Your Go-To Phone Number Information Source!.</p>
-            </div>
-        </a>
-
-        <a href="/qr/" class="card">
-            <h2>QR Scanner</h2>
-            <img src="https://img.freepik.com/premium-vector/happy-baby-qr-code-cartoon-character_152558-82203.jpg" alt="Image 1" class="center-image" width="150" height="80">
-            <p> Transform Information into Scannable Codes </p>
-        </a>
-        <a href="widget2.html" class="card">
-            <h2>Widget 2</h2>
-            <p>This is the content of widget 2.</p>
-            <img src="image2.jpg" alt="Image 2">
-        </a>
-        <a href="widget3.html" class="card">
-            <h2>Widget 3</h2>
-            <p>This is the content of widget 3.</p>
-            <img src="image3.jpg" alt="Image 3">
-        </a>
-
-    </div>
-</body>
-</html>
- -->
 
  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Animated Bootstrap Cards</title>
+  <title>Dashboard</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
          body {
@@ -281,16 +108,12 @@
   </style>
 </head>
 <body>
-    <div class="navbar">
-        <h1>My Dashboard</h1>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </nav>
-    </div>
+
+  {% include 'nav.html' %}
+
+    
 <div class="container mt-5">
-  <div class="row">
+  <div class="row" style="padding-top: 5%;margin-top: 5%;">
     <div class="col-md-4 mb-4">
         
       <div class="card" onclick="location.href='/qr/'">
@@ -312,10 +135,10 @@
       </div>
       <div class="col-md-4 mb-4">
         <div class="card" onclick="location.href='/ytmp3/'">
-          <h5 class="card-header text-center">PDF to DOCX Converter</h5>
-          <img src="https://www.virtualpbx.com/wp-content/uploads/2021/08/addNumbers2-1024x796.png" class="card-img-top" alt="Image 1">
+          <h5 class="card-header text-center">DOCX to PDF Converter</h5>
+          <img src="https://miro.medium.com/v2/resize:fit:800/0*tX_ivaBDJT-DjarT.png" class="card-img-top" alt="Image 1">
           <div class="card-body">
-            <p class="card-text"></p>
+            <p class="card-text">Transforming Documents into Portable Perfection</p>
           </div>
         </div>
       </div>
@@ -324,18 +147,18 @@
   <div class="row">
     <div class="col-md-4 mb-4">
         
-      <div class="card" onclick="location.href='/qr/'">
-        <h5 class="card-header text-center">QR Scanner</h5>
-        <img src="https://img.freepik.com/premium-vector/happy-baby-qr-code-cartoon-character_152558-82203.jpg" class="card-img-top" alt="Image 1">
+      <div class="card" onclick="location.href='/zodiac_sign/'">
+        <h5 class="card-header text-center">What's Your Zodiac Sign?</h5>
+        <img src="https://www.mindmapcharts.com/images/How_to_know_your_zodiac_sign.png" class="card-img-top" alt="Image 1">
         <div class="card-body">
-          <p class="card-text">Transform Information into Scannable Codes</p>
+          <p class="card-text">Zodiac Unveiled: Where the Stars Reveal Your True Self ✨🌟</p>
         </div>
       </div>
     </div>
     <div class="col-md-4 mb-4">
         <div class="card">
-          <h5 class="card-header text-center">YouTube to Mp3 Music Converter</h5>
-          <img src="https://cdn.setapp.com/blog/images/how-to-convert-youtube-to-mp3-1920-646.webp" class="card-img-top" alt="Image 1">
+          <h5 class="card-header text-center">Cricket Live Score</h5>
+          <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/a6/9e/64/a69e642a-258a-62aa-2f91-e1702d4fb201/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/1200x600wa.png" class="card-img-top" alt="Image 1">
           <div class="card-body">
             <p class="card-text">Echoes of Creativity: Sculpt Your Playlist with this YouTube to MP3 Converter.</p>
           </div>
