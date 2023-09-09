@@ -1,0 +1,38 @@
+{% include 'nav.html' %}
+
+
+
+<head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .center-text {
+            text-align: center;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f0f0f0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="center-text">
+    <h1 style="padding-bottom: 5%;"> Live Cricket Score</h1>
+    {% for i in live_matches %}
+    <h6>{{ i }}<h6>
+    {% endfor %}
+</div>
+<div class="footer">
+    <p style="font-size: smaller;">Note: Only shows the live matches and ignores the completed ones</p>
+</div>
+</body>
