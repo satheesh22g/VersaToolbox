@@ -10,4 +10,6 @@ urlpatterns = [
     path('mobile_number/',views.mobile_number),
     path('zodiac_sign/',views.zodiac_sign),
     path('about/',views.about),
+    path('cricket/',views.cricket),
+    path('home/',views.home.as_view(),name="home"),
 ]
