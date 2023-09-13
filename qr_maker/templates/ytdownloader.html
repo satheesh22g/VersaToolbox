@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YT Vedio Downloader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s infinite alternate;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+        .content {
+            padding-top: 8%;
+           
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+{% include 'nav.html' %}
+<body style="align-items: center;text-align: center;height: fit-content;">
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Important Note</h4>
+                    <button type="button" class="close" onclick="location.href='/dashboard/'">&times;</button>
+                </div>
+    
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p>This YouTube video downloader is hosted on PythonAnywhere's free version, which has limitations that may prevent it from accessing third-party websites like YouTube. As a result, this app may not work properly in its current state.</p>
+                    <p>In the future, I plan to upgrade to a paid version of PythonAnywhere to make this app fully functional. Thank you for your understanding.</p>
+                </div>
+    
+                <!-- Modal footer with "Cancel" and "Understood" buttons -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="location.href='/dashboard/'">Cancel</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Understood</button>
+            </div>
+    
+            </div>
+        </div>
+    </div>
+    
+    <!-- Your download form and other content here -->
+    
+    <!-- Include Bootstrap JS (jQuery is required) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- JavaScript to trigger the modal on page load -->
+    <script>
+        $(document).ready(function(){
+            $("#myModal").modal('show');
+        });
+    </script>
+   
+    <div class="content">
+    <div class="title">YouTube Vedio Downloader</div>
+    
+    <div class="input-container">
+    <form method="post" action="">
+        {% csrf_token %}
+        <!-- for fetching the video -->
+        <input type="text" name="given_url" value="{{url}}" placeholder="enter url..">
+        <button type="submit" name="fetch-vid" value="fetch-vid">Proceed</button>
+
+        <br>
+            <h3>{{vidTitle}}</h3>
+            <img width="auto" height="auto" src="{{vidThumbnail}}"/>
+        <br>
+
+        <!-- for downloading the video -->
+        {% for x in stream %}
+            {{x.resolution}} <button type="submit" name="download-vid" value="{{forloop.counter}}">Download</button>|
+        {% endfor %}
+        <br><br>
+    </form>
+    </div>
+</div>
+</body>
+</html>

@@ -142,47 +142,52 @@ def cricket(request):
     matches = soup.find_all('description') # description tags contain the score
     live_matches = [s.get_text() for s in matches if '*' in s.get_text()]
     return render(request, "cricket.html",{"live_matches":live_matches})
-class home(View):
+class ytdownloader(View):
     def __init__(self,url=None):
         self.url = url
     def get(self,request):
-        return render(request,'home.html')
+        return render(request,'ytdownloader.html')
     def post(self,request):
         # for fetching the video
-        if request.POST.get('fetch-vid'):
-            self.url = request.POST.get('given_url')
-            video = YouTube(self.url)
-            vidTitle,vidThumbnail = video.title,video.thumbnail_url
-            qual,stream = [],[]
-            for vid in video.streams.filter(progressive=True):
-                qual.append(vid.resolution)
-                stream.append(vid)
-            context = {'vidTitle':vidTitle,'vidThumbnail':vidThumbnail,
-                        'qual':qual,'stream':stream,
-                        'url':self.url}
-            return render(request,'home.html',context)
+        try:
+            if request.POST.get('fetch-vid'):
+                self.url = request.POST.get('given_url')
+                video = YouTube(self.url)
+                vidTitle,vidThumbnail = video.title,video.thumbnail_url
+                qual,stream = [],[]
+                for vid in video.streams.filter(progressive=True):
+                    qual.append(vid.resolution)
+                    stream.append(vid)
+                context = {'vidTitle':vidTitle,'vidThumbnail':vidThumbnail,
+                            'qual':qual,'stream':stream,
+                            'url':self.url}
+                return render(request,'ytdownloader.html',context)
 
-        # for downloading the video
-        elif request.POST.get('download-vid'):
-            self.url = request.POST.get('given_url')
-            video = YouTube(self.url)
-            print("loveday")
-            stream = [x for x in video.streams.filter(progressive=True)]
-            video_qual = video.streams[int(request.POST.get('download-vid')) - 1]
-            video_qual.download(output_path='')
-
-
-            title = video.title
-            file_path = f'{title}.mp4'
-            
-            # Prepare the file for download
-            response = FileResponse(open(file_path, 'rb'))
-            response['Content-Disposition'] = f'attachment; filename="{title}.mp4"'
-            
-            return response
-
-        return render(request,'home.html')
+            # for downloading the video
+            elif request.POST.get('download-vid'):
+                self.url = request.POST.get('given_url')
+                video = YouTube(self.url)
+                print("loveday")
+                stream = [x for x in video.streams.filter(progressive=True)]
+                video_qual = video.streams[int(request.POST.get('download-vid')) - 1]
+                video_qual.download(output_path='')
 
 
+                title = video.title
+                file_path = f'{title}.mp4'
+                
+                # Prepare the file for download
+                response = FileResponse(open(file_path, 'rb'))
+                response['Content-Disposition'] = f'attachment; filename="{title}.mp4"'
+                
+                return response
+        except:
+            message = "There"
+            return render(request,'error.html')
+        return render(request,'ytdownloader.html')
+
+def docx_pdf(request):
+    return render(request,"docx_pdf.html")
 def about(request):
     return render(request, "about.html")
+
