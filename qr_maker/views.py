@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 from django.views.generic import View
 from pytube import YouTube
 from django.shortcuts import render,redirect
+from django.http import HttpResponse, FileResponse
 # Create your views here.
 
 
@@ -169,6 +170,16 @@ class home(View):
             stream = [x for x in video.streams.filter(progressive=True)]
             video_qual = video.streams[int(request.POST.get('download-vid')) - 1]
             video_qual.download(output_path='')
+
+
+            title = video.title
+            file_path = f'{title}.mp4'
+            
+            # Prepare the file for download
+            response = FileResponse(open(file_path, 'rb'))
+            response['Content-Disposition'] = f'attachment; filename="{title}.mp4"'
+            
+            return response
 
         return render(request,'home.html')
 
