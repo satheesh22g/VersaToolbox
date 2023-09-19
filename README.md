@@ -14,7 +14,7 @@ VersaToolbox offers a range of functionalities:
 
 ## Live Demo
 
-You can access the live demo of VersaToolbox [here]([insert_live_link_here](http://satheesh22g.pythonanywhere.com/dashboard/)).
+You can access the live demo of VersaToolbox [here](http://satheesh22g.pythonanywhere.com/dashboard/).
 
 **Note**: Please be aware that the hosted version is running on the free version of PythonAnywhere. Due to infrequent code updates and limited third-party access, some features may not work as expected. For example, the YouTube video downloader may not function in the hosted link, but it works in the local environment. In the future, I will explore alternative hosting options to improve functionality and access.
 
