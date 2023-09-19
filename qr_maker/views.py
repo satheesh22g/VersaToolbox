@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 import qrcode
-from .forms import QRForm,YtMp3Form,MobileForm,ZodiacForm
+from .forms import QRForm,YtMp3Form,MobileForm,ZodiacForm, UploadFileForm
 from PIL import Image
 import youtube_dl
 import phonenumbers
@@ -12,6 +12,13 @@ from django.views.generic import View
 from pytube import YouTube
 from django.shortcuts import render,redirect
 from django.http import HttpResponse, FileResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, Http404
+from .models import Document
+from .forms import DocumentForm
+from pdf2docx import Converter
+import os
+import tempfile
 # Create your views here.
 
 
@@ -167,7 +174,6 @@ class ytdownloader(View):
             elif request.POST.get('download-vid'):
                 self.url = request.POST.get('given_url')
                 video = YouTube(self.url)
-                print("loveday")
                 stream = [x for x in video.streams.filter(progressive=True)]
                 video_qual = video.streams[int(request.POST.get('download-vid')) - 1]
                 video_qual.download(output_path='')
@@ -182,12 +188,40 @@ class ytdownloader(View):
                 
                 return response
         except:
-            message = "There"
-            return render(request,'error.html')
+            message = "Invalid URL. Ttry again!!!"
+            return render(request,'ytdownloader.html')
         return render(request,'ytdownloader.html')
 
-def docx_pdf(request):
-    return render(request,"docx_pdf.html")
 def about(request):
     return render(request, "about.html")
+def convert_and_download(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            pdf_file = request.FILES['pdf_file']
 
+            # Create a temporary file to store the PDF content
+
+            # Perform the PDF to DOCX conversion
+            docx_file = convert_pdf_to_docx(pdf_file)
+
+            # Serve the converted DOCX file as a response
+            with open(docx_file, 'rb') as docx_content:
+                response = HttpResponse(docx_content.read(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                response['Content-Disposition'] = f'attachment; filename=converted.docx'
+                return response
+    else:
+        form = DocumentForm()
+    
+    return render(request, 'docx_pdf.html', {'form': form})
+
+def convert_pdf_to_docx(pdf_file_path):
+    # Create a temporary DOCX file path
+    docx_file_path = tempfile.mktemp(suffix='.docx')
+
+    # Convert PDF to DOCX using pdf2docx
+    cv = Converter(pdf_file_path)
+    cv.convert(docx_file_path, start=0, end=None)
+    cv.close()
+
+    return docx_file_path

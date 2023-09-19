@@ -11,6 +11,6 @@ urlpatterns = [
     path('zodiac_sign/',views.zodiac_sign),
     path('about/',views.about),
     path('cricket/',views.cricket),
-    path('docx_pdf/',views.docx_pdf),
+    path('convert/', views.convert_and_download, name='convert'),
     path('ytdownloader/',views.ytdownloader.as_view(),name="ytdownloader"),
 ]
