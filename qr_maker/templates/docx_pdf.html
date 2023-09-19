@@ -1,4 +1,25 @@
 {% include 'nav.html' %}
-<div class="alert alert-warning">
-    This feature is still under development and may not work as expected.
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to DOCX Converter</title>
+</head>
+<body>
+    <h1>Convert PDF to DOCX</h1>
+    <form method="post" action="{% url 'convert' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="pdf_file">Select a PDF file:</label>
+        <input type="file" name="pdf_file" required>
+        <button type="submit">Convert</button>
+    </form>
+
+    {% if docx_file %}
+    <h2>Download the converted DOCX file:</h2>
+    <a href="{% url 'download' docx_file.id %}" download="{{ docx_file.filename }}">
+        <button>Download DOCX</button>
+    </a>
+    {% endif %}
+</body>
+</html>
