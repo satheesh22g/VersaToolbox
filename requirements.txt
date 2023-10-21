@@ -10,6 +10,7 @@ Pillow==9.5.0
 pypng==0.20220715.0
 PyQRCode==1.2.1
 pytube==15.0.0
+pdf2docx
 pytz==2023.3
 qrcode==7.4.2
 requests==2.31.0
