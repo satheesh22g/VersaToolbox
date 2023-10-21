@@ -19,7 +19,6 @@ from .forms import DocumentForm
 from pdf2docx import Converter
 import os
 import tempfile
-# Create your views here.
 
 
 def index(request):
