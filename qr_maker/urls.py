@@ -12,5 +12,6 @@ urlpatterns = [
     path('about/',views.about),
     path('cricket/',views.cricket),
     path('convert/', views.convert_and_download, name='convert'),
-    path('ytdownloader/',views.ytdownloader.as_view(),name="ytdownloader"),
+    path('ytdownloader/', views.YTDownloader.as_view(), name="ytdownloader"),
+    #path('ytdownloader/',views.ytdownloader.as_view(),name="ytdownloader"),
 ]

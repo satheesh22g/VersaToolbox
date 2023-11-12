@@ -149,48 +149,64 @@ def cricket(request):
     matches = soup.find_all('description') # description tags contain the score
     live_matches = [s.get_text() for s in matches if '*' in s.get_text()]
     return render(request, "cricket.html",{"live_matches":live_matches})
-class ytdownloader(View):
-    def __init__(self,url=None):
+
+from django.views import View
+from django.shortcuts import render
+from django.http import FileResponse
+from pytube import YouTube
+from pytube.exceptions import RegexMatchError, VideoUnavailable
+
+from django.views import View
+from django.shortcuts import render
+from django.http import StreamingHttpResponse
+from pytube import YouTube
+from pytube.exceptions import RegexMatchError, VideoUnavailable
+import requests
+
+class YTDownloader(View):
+    def __init__(self, url=None):
         self.url = url
-    def get(self,request):
-        return render(request,'ytdownloader.html')
-    def post(self,request):
-        # for fetching the video
+
+    def get(self, request):
+        return render(request, 'ytdownloader.html')
+
+    def post(self, request):
         try:
-            if request.POST.get('fetch-vid'):
+            if 'fetch-vid' in request.POST:
                 self.url = request.POST.get('given_url')
                 video = YouTube(self.url)
-                vidTitle,vidThumbnail = video.title,video.thumbnail_url
-                qual,stream = [],[]
+                vid_title, vid_thumbnail = video.title, video.thumbnail_url
+                qual, stream = [], []
                 for vid in video.streams.filter(progressive=True):
                     qual.append(vid.resolution)
                     stream.append(vid)
-                context = {'vidTitle':vidTitle,'vidThumbnail':vidThumbnail,
-                            'qual':qual,'stream':stream,
-                            'url':self.url}
-                return render(request,'ytdownloader.html',context)
+                context = {'vid_title': vid_title, 'vid_thumbnail': vid_thumbnail,
+                           'qual': qual, 'stream': stream,
+                           'url': self.url}
+                return render(request, 'ytdownloader.html', context)
 
-            # for downloading the video
-            elif request.POST.get('download-vid'):
+            elif 'download-vid' in request.POST:
                 self.url = request.POST.get('given_url')
                 video = YouTube(self.url)
-                stream = [x for x in video.streams.filter(progressive=True)]
                 video_qual = video.streams[int(request.POST.get('download-vid')) - 1]
-                video_qual.download(output_path='')
 
+                # Sanitize the video title for use as a file name
+                title = ''.join(c if c.isalnum() or c in [' ', '_'] else '' for c in video.title)
+                title = title.replace(' ', '_')
 
-                title = video.title
-                file_path = f'{title}.mp4'
-                
-                # Prepare the file for download
-                response = FileResponse(open(file_path, 'rb'))
+                # Download the video content using requests
+                video_data = requests.get(video_qual.url).content
+
+                # Prepare the file for download using StreamingHttpResponse
+                response = StreamingHttpResponse([video_data], content_type='application/octet-stream')
                 response['Content-Disposition'] = f'attachment; filename="{title}.mp4"'
-                
                 return response
-        except:
-            message = "Invalid URL. Ttry again!!!"
-            return render(request,'ytdownloader.html')
-        return render(request,'ytdownloader.html')
+
+        except (RegexMatchError, VideoUnavailable) as e:
+            context = {'message': f"Error: {str(e)}. Try again!!!"}
+            return render(request, 'ytdownloader.html', context)
+
+        return render(request, 'ytdownloader.html')
 
 def about(request):
     return render(request, "about.html")
