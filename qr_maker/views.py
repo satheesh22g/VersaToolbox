@@ -19,6 +19,7 @@ from .forms import DocumentForm
 from pdf2docx import Converter
 import os
 import tempfile
+<<<<<<< HEAD
 # views.py
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -37,6 +38,8 @@ import tempfile
 import os
 import io
 # Create your views here.
+=======
+>>>>>>> a0adccf39938e4ad5339c40c8730457bc676df1c
 
 
 def index(request):
