@@ -19,3 +19,7 @@ sqlparse==0.4.4
 typing-extensions==4.7.1
 urllib3==1.26.6
 youtube-dl==2021.12.17
+pdf2docx
+pytesseract
+PyPDF2
+pypandoc

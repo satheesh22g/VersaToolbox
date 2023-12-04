@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 import qrcode
 from .forms import QRForm,YtMp3Form,MobileForm,ZodiacForm, UploadFileForm
 from PIL import Image
-import youtube_dl
+#import youtube_dl
 import phonenumbers
 from phonenumbers import carrier, geocoder,timezone
 import requests
@@ -19,6 +19,27 @@ from .forms import DocumentForm
 from pdf2docx import Converter
 import os
 import tempfile
+<<<<<<< HEAD
+# views.py
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.views import View
+from django.template.loader import render_to_string
+from docx import Document
+import tempfile
+import os
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.views import View
+import pypandoc
+import tempfile
+import os
+import io
+# Create your views here.
+=======
+>>>>>>> a0adccf39938e4ad5339c40c8730457bc676df1c
 
 
 def index(request):
@@ -161,6 +182,7 @@ from django.http import StreamingHttpResponse
 from pytube import YouTube
 from pytube.exceptions import RegexMatchError, VideoUnavailable
 import requests
+import io
 
 class YTDownloader(View):
     def __init__(self, url=None):
@@ -206,6 +228,47 @@ class YTDownloader(View):
             return render(request, 'ytdownloader.html', context)
 
         return render(request, 'ytdownloader.html')
+
+
+class ConvertPDFToDOCXView(View):
+    template_name = 'docx_pdf.html'  # Update the template name
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        if request.method == 'POST' and request.FILES.get('pdf_file'):
+            # Get the uploaded PDF file from the request
+            pdf_file = request.FILES['pdf_file']
+
+            # Save PDF content to a temporary file
+            temp_pdf_file = tempfile.NamedTemporaryFile(delete=False)
+            temp_pdf_file.write(pdf_file.read())
+            temp_pdf_file_path = temp_pdf_file.name
+
+            # Initialize BytesIO object to store the converted DOCX file
+            docx_data = io.BytesIO()
+
+            # Convert PDF to DOCX using pypandoc
+            try:
+                output = pypandoc.convert_file(temp_pdf_file_path, 'docx', outputfile=docx_data)
+            except Exception as e:
+                return HttpResponse(f"Conversion error: {str(e)}")
+
+            finally:
+                # Remove the temporary PDF file
+                temp_pdf_file.close()
+                os.remove(temp_pdf_file_path)
+
+            # Prepare the response for downloading the DOCX file
+            response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+            response['Content-Disposition'] = f'attachment; filename=converted_document.docx'
+            response.write(docx_data.getvalue())
+
+            return response
+
+        return render(request, self.template_name)
+
 
 def about(request):
     return render(request, "about.html")

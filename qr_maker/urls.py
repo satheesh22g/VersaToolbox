@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from .views import ConvertPDFToDOCXView
 
 urlpatterns = [
     path("", views.index, name="index"),
@@ -11,7 +12,8 @@ urlpatterns = [
     path('zodiac_sign/',views.zodiac_sign),
     path('about/',views.about),
     path('cricket/',views.cricket),
-    path('convert/', views.convert_and_download, name='convert'),
+    #path('convert/', views.convert_pdf_to_docx, name='convert_pdf_to_docx'),
+    path('convert_pdf_to_docx/', ConvertPDFToDOCXView.as_view(), name='convert_pdf_to_docx'),
     path('ytdownloader/', views.YTDownloader.as_view(), name="ytdownloader"),
     #path('ytdownloader/',views.ytdownloader.as_view(),name="ytdownloader"),
 ]

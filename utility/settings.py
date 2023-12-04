@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,9 +27,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# settings.py
 
-# Application definition
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # This should point to your static directory
+    # Other directories if present
+]
 INSTALLED_APPS = [
     'qr_maker.apps.QrMakerConfig',
     'django.contrib.admin',
@@ -38,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'extract'
 
 ]
 
@@ -56,7 +63,12 @@ ROOT_URLCONF = 'utility.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            # Add paths to your template directories
+            os.path.join(BASE_DIR, 'extract/templates'),
+            os.path.join(BASE_DIR, 'qr_maker/templates'),
+            # ... other directories
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
