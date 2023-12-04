@@ -1,0 +1,26 @@
+<!-- home.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <!-- Inside the <head> section of your HTML templates -->
+
+
+        
+
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% include 'footer.html' %}
+   <div class="center" style="margin: 2%;text-align: center;">
+    <h1 style="text-align: center;margin: 5%;">Welcome to Data Extraction</h1>
+    <ul>
+        <br>
+        <a href="{% url 'image_extraction' %}">Image Data Extraction</a><br><br>
+        <a href="{% url 'pdf_extraction' %}">PDF Data Extraction</a>
+    </ul>
+   </div>
+</body>
+</html>

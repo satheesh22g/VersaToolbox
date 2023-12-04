@@ -21,7 +21,7 @@
 </head>
 <body>
     <h1>Convert PDF to DOCX</h1>
-    <form method="post" action="{% url 'convert' %}" enctype="multipart/form-data">
+    <form method="post" action="{% url 'convert_pdf_to_docx' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="pdf_file">Select a PDF file:</label>
         <input type="file" name="pdf_file" required>
