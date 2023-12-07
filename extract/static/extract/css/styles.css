@@ -117,16 +117,3 @@ form
     }
 
 
-
-    .content {
-        font-size: 16px; /* Default font size */
-        /* Other default styles */
-    }
-    
-    /* Media query for smaller screens */
-    @media screen and (max-width: 768px) {
-        .content {
-            font-size: 4vw; /* Adjust the font size using viewport width */
-            /* Other styles for smaller screens */
-        }
-    }
