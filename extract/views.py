@@ -34,20 +34,25 @@ def image_extraction(request):
 
 def pdf_extraction(request):
     if request.method == 'POST' and request.FILES['document']:
-        uploaded_file = request.FILES['document']
-        pdf_reader = PyPDF2.PdfReader(uploaded_file)
-        extracted_text = ''
+        try:
+            uploaded_file = request.FILES['document']
+            pdf_reader = PyPDF2.PdfReader(uploaded_file)
+            extracted_text = ''
 
-        for page_num in range(len(pdf_reader.pages)):
-            page = pdf_reader.pages[page_num]
-            extracted_text += page.extract_text()
-        extracted_text = extracted_text.replace('\n', ' ')
-        extracted_data = ExtractedData.objects.create(
-                document=uploaded_file,
-                extracted_text=extracted_text,
-                document_type='PDF'
-            )
-        pdf_url = uploaded_file.url if hasattr(uploaded_file, 'url') else None
-        return render(request, 'result.html', {'extracted_data': extracted_data,'pdf':'PDF'})
+            for page_num in range(len(pdf_reader.pages)):
+                page = pdf_reader.pages[page_num]
+                extracted_text += page.extract_text()
+            extracted_text = extracted_text.replace('\n', ' ')
+            extracted_data = ExtractedData.objects.create(
+                    document=uploaded_file,
+                    extracted_text=extracted_text,
+                    document_type='PDF'
+                )
+            pdf_url = uploaded_file.url if hasattr(uploaded_file, 'url') else None
+            return render(request, 'result.html', {'extracted_data': extracted_data,'pdf':'PDF'})
+        except Exception as e:
+            error_message = f"Error processing image: {e}"
+            return render(request, 'error.html', {'error_message': error_message})
+
 
     return render(request, 'pdf_extraction.html')
