@@ -4,15 +4,15 @@
     <head>
     <!-- Inside the <head> section of your HTML templates -->
         <link rel="stylesheet" href="{% static '/extract/css/styles.css' %}">
-
+  
     </head>
     <body>
         
-    {% include 'navbar.html' %}
+    {% include 'nav.html' %}
     {% include 'footer.html' %}
-<div class="page-container">
-    <div class="container">
-    <div class="extracted-text">
+<div class="page-container" style="margin: 75px;">
+    <div class="container center-content">
+    <div class="extracted-text ">
         {% if extracted_data %}
             <h2>Extracted Text:</h2>
             {{ extracted_data.extracted_text|urlize }}
