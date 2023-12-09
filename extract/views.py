@@ -4,9 +4,12 @@ import pytesseract
 from PIL import Image
 from io import BytesIO
 import PyPDF2
-pytesseract.pytesseract.tesseract_cmd = r'G:\tessaract\tesseract.exe'
+import os
+from .helpers import remove_tempfiles
+pytesseract.pytesseract.tesseract_cmd = r'G:\django-apps\tessaract\tesseract.exe'
 
 def home(request):
+    remove_tempfiles()
     return render(request, 'home.html')
 def image_extraction(request):
     if request.method == 'POST' and request.FILES['document']:
@@ -56,3 +59,4 @@ def pdf_extraction(request):
 
 
     return render(request, 'pdf_extraction.html')
+
