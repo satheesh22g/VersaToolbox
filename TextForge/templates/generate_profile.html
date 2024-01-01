@@ -1,0 +1,101 @@
+<!-- profile.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake Profile Generator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function copyText() {
+            var copyText = document.getElementById("generatedText");
+            copyText.select();
+            document.execCommand("copy");
+        }
+    </script>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container mt-5">
+        <div style="padding-top: 15px;text-align: center;">
+        <h1>TextForge</h1>
+        <p>Create Authentic-Looking Profiles Instantly!</p>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6 mb-4">
+                <h3>Fake Profile Generator</h3>
+                <form method="post" action="{% url 'generate_profile' %}" id="profileForm">
+                    {% csrf_token %}
+                    <label for="profileType">Select Profile Type:</label>
+                    <select name="profileType" id="profileType" class="form-control">
+                        <option value="indian">Indian</option>
+                        <option value="foreign">Foreign</option>
+                    </select>
+                    <br><br>
+                    <button type="submit" class="btn btn-primary btn-block">Generate Profile</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h3>Fake Address Generator</h3>
+                <form method="post" action="{% url 'generate_address' %}" id="addressForm">
+                    {% csrf_token %}
+                    <label for="addressType">Select Address Type:</label>
+                    <select name="addressType" id="addressType" class="form-control">
+                        <option value="indian">Indian</option>
+                        <option value="foreign">Foreign</option>
+                    </select>
+                    <br><br>
+                    <button type="submit" class="btn btn-primary btn-block">Generate Address</button>
+                </form>
+            </div>
+        </div>
+        
+        {% if profile %}
+        <h2 class="mt-4">Profile Information</h2>
+        <table class="table table-bordered">
+            {% for key, value in profile.items %}
+                <tr>
+                    <th scope="row">{{ key|title }}</th>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+        
+        {% if address %}
+        <h2 class="mt-4">Address Information</h2>
+        <table class="table table-bordered">
+            {% for key, value in address.items %}
+                <tr>
+                    <th scope="row">{{ key|title }}</th>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p class="mt-4">No Address Information Available</p>
+        {% endif %}
+        
+        {% if profile or address %}
+            <textarea id="generatedText" class="form-control d-none" rows="5" readonly>
+                {% if profile %}
+                    Profile Information:
+                    {% for key, value in profile.items %}
+                        {{ key|title }}: {{ value }}
+                    {% endfor %}
+                {% endif %}
+                {% if address %}
+                    Address Information:
+                    {% for key, value in address.items %}
+                        {{ key|title }}: {{ value }}
+                    {% endfor %}
+                {% endif %}
+            </textarea>
+            <button onclick="copyText()" class="btn btn-primary btn-block">Copy Data</button>
+        {% endif %}
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

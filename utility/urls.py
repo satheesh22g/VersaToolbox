@@ -23,5 +23,9 @@ urlpatterns = [
     path("", include("qr_maker.urls")),
     path("", include('extract.urls')), 
     path('', include('plagiarism.urls')),
+    path("", include('api.urls')),
+    path("", include('fetch_data.urls')),
+    path("", include('authentications.urls')),
+    path("", include('TextForge.urls')),
     path("admin/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
