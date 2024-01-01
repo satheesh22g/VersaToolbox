@@ -33,10 +33,16 @@ ALLOWED_HOSTS = ['*']
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static',  # This should point to your static directory
-    # Other directories if present
+    os.path.join(BASE_DIR, 'rest_framework', 'static'),
 ]
+
+AUTH_USER_MODEL = 'authentications.User'
+
+
 INSTALLED_APPS = [
     'qr_maker.apps.QrMakerConfig',
     'django.contrib.admin',
@@ -47,6 +53,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'extract',
     'plagiarism',
+    'api',
+    'rest_framework',
+    'fetch_data',
+    'authentications',
+    'TextForge',
 
 ]
 
