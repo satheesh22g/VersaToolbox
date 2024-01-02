@@ -13,6 +13,8 @@ VersaToolbox offers a range of functionalities:
 - **Cricket Live Score**
 - **Document/Image OCR**
 - **Plagiarism Checker**
+- **Fake Data Generator**
+- **Quote Generator**
 - **And More**
 
 ## Live Demo
