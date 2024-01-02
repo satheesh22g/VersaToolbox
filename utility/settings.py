@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'fetch_data',
     'authentications',
     'TextForge',
+    'quotegenerator',
 
 ]
 
