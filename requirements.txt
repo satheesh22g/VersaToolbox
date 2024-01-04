@@ -24,3 +24,4 @@ pdf2docx
 pytesseract
 PyPDF2
 pypandoc
+djangorestframework
