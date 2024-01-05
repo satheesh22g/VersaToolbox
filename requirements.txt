@@ -25,3 +25,4 @@ pytesseract
 PyPDF2
 pypandoc
 djangorestframework
+scikit-learn
