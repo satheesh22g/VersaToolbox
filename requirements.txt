@@ -23,6 +23,7 @@ youtube-dl==2021.12.17
 pdf2docx
 pytesseract
 PyPDF2
+faker
 pypandoc
 djangorestframework
 scikit-learn
