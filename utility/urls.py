@@ -28,5 +28,6 @@ urlpatterns = [
     path("", include('authentications.urls')),
     path("", include('TextForge.urls')),
     path("", include('quotegenerator.urls')),
+    path("", include('mealrecipes.urls')),
     path("admin/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
