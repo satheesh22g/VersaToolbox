@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'authentications',
     'TextForge',
     'quotegenerator',
+    'mealrecipes',
 
 ]
 

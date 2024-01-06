@@ -37,15 +37,29 @@ def generate_profile(request):
 
 def generate_address(request):
     address = None
-    address_fake = Faker('en_IN') if request.POST.get('addressType') == 'indian' else Faker()
-    address = {
-        'street_address': address_fake.street_address(),
-        'city': address_fake.city(),
-        'state': address_fake.state(),
-        'country': address_fake.country(),
-        'phone_number': address_fake.phone_number(),
-        'email': address_fake.email(),
-        # Add more fake address data fields as needed
-    }
+    address_type = request.POST.get('addressType')
+    address_fake = Faker('en_IN') if address_type == 'indian' else Faker()
+    if address_type == 'indian':
+
+        address = {
+            'street_address': address_fake.street_address(),
+            'city': address_fake.city(),
+            'state': address_fake.state(),
+            'country': "India",
+            'phone_number': address_fake.phone_number(),
+            'email': address_fake.email(),
+            # Add more fake address data fields as needed
+        }
+    else:
+        address = {
+            'street_address': address_fake.street_address(),
+            'city': address_fake.city(),
+            'state': address_fake.state(),
+            'country': address_fake.country(),
+            'phone_number': address_fake.phone_number(),
+            'email': address_fake.email(),
+            # Add more fake address data fields as needed
+        }
+
 
     return render(request, 'generate_profile.html', {'address': address})
