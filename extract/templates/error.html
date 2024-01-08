@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error Page</title>
+    <!-- Inside the <head> section of your HTML templates -->
+<link rel="stylesheet" href="{% static '/extract/css/styles.css' %}">
+
+    <!-- Add your CSS or other head elements here -->
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% include 'footer.html' %}
+    <span style="text-align: center;margin-top: 75px;">
+    <h1>Error Encountered</h1>
+    <p>An error occurred while processing your request:</p>
+    <p>{{ error_message }}</p>
+    <a href="/extract/">Take me back to data extraction</a>
+    </span>
+    <!-- Additional error details or information can be displayed here -->
+</body>
+</html>

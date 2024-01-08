@@ -1,0 +1,47 @@
+
+{% load static %}
+<html>
+    <head>
+    <!-- Inside the <head> section of your HTML templates -->
+        <link rel="stylesheet" href="{% static '/extract/css/styles.css' %}">
+  
+    </head>
+    <body>
+        
+    {% include 'nav.html' %}
+    {% include 'footer.html' %}
+<div class="page-container" style="margin: 75px;">
+    <div class="container center-content">
+    <div class="extracted-text ">
+        {% if extracted_data %}
+            <h2>Extracted Text:</h2>
+            {{ extracted_data.extracted_text|urlize }}
+        {% endif %}
+    </div>
+
+    <div class="image-container">
+        {% if pdf == "PDF" %}
+
+        <h2> Uploaded Document</h2>
+        
+<object data="{{ MEDIA_URL }}{{ extracted_data.document.url }}" type="application/pdf" width="100%" height="100%">
+  <p>Unable to display Document <a target="_blank" href="{{ MEDIA_URL }}{{ extracted_data.document.url }}">click here to see PDF!</a></p>
+</object>
+          <a href="/pdf-extraction/">Back</a>
+    {% elif image == "image" %}
+    <h2> Uploaded Image</h2>
+   
+    <img src="{{ MEDIA_URL }}{{ extracted_data.document.url }}" alt="Uploaded Image" style="border: 2px solid #0c0505;padding: 5px;">
+    <a href="/image-extraction/">Back</a>
+    {% else %}
+        <p>No valid document found.</p>
+    {% endif %}
+    </div>
+</div>
+{% if extracted_data %}
+<p style="margin-top: 2%;">Document Type: {{ extracted_data.document_type }}</p>
+{% endif %}
+</div>
+
+    </body>
+</html>

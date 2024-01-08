@@ -1,13 +1,28 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 import qrcode
-from .forms import QRForm,YtMp3Form,MobileForm,ZodiacForm
-from PIL import Image
-import youtube_dl
+from .forms import QRForm,MobileForm,ZodiacForm
 import phonenumbers
 from phonenumbers import carrier, geocoder,timezone
-# Create your views here.
+import requests
+from bs4 import BeautifulSoup
+from django.views.generic import View
+from django.http import HttpResponse
+from .forms import DocumentForm
+from pdf2docx import Converter
+# views.py
+import os
+from django.http import HttpResponse
+from django.views import View
+import tempfile
 
+# youtuble
+
+from pytube import YouTube
+from pytube.exceptions import RegexMatchError, VideoUnavailable
+from django.http import StreamingHttpResponse
+from pytube import YouTube
+import requests
 
 def index(request):
     return render(request,'index.html')
@@ -31,50 +46,34 @@ def qr(request):
         form = QRForm()
     return render(request, "qr.html", {"form": form})
 
-def ytmp3(request):
-    if request.method == "POST":
-        # create a form instance and populate it with data from the request:
-        form = YtMp3Form(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            url = form.cleaned_data["url"]
-            ydl_opts = {
-                'format': 'bestaudio/best',
-                'postprocessors': [{
-                    'key': 'FFmpegExtractAudio',
-                    'preferredcodec': 'mp3',
-                    'preferredquality': '192',
-                }],
-            }
-            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            
-                ydl.download([url])
-    else:
-        form = YtMp3Form()
-    return render(request, "ytmp3.html", {"form": form})
 
 
 def mobile_number(request):
+    message = None
     mobileno=None
     cr=None
     tz=None
     country =None
     valid = None
-    if request.method == "POST":
-        # create a form instance and populate it with data from the request:
-        form = MobileForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            number = "+"+str(form.cleaned_data["number"])
-            print(number)
-            mobileno=phonenumbers.parse(number)
-            tz = timezone.time_zones_for_number(mobileno)[0]
-            cr = carrier.name_for_number(mobileno,"en")
-            country = geocoder.description_for_number(mobileno,"en")
-            valid = phonenumbers.is_valid_number(mobileno)
+    try:
+        if request.method == "POST":
+            # create a form instance and populate it with data from the request:
+            form = MobileForm(request.POST)
+            # check whether it's valid:
+            if form.is_valid():
+                number = "+"+str(form.cleaned_data["number"])
+                print(number)
+                mobileno=phonenumbers.parse(number)
+                tz = timezone.time_zones_for_number(mobileno)[0]
+                cr = carrier.name_for_number(mobileno,"en")
+                country = geocoder.description_for_number(mobileno,"en")
+                valid = phonenumbers.is_valid_number(mobileno)
 
-    else:
-        form = MobileForm()
+        else:
+            form = MobileForm()
+    except:
+        message="Invalid Number, Try Again"
+        return render(request, "mobile_number.html", {"form": form,"message":message})
     return render(request, "mobile_number.html", {"form": form,"mobileno":mobileno,"cr":cr,"tz":tz,"country":country,"valid":valid})
 
 
@@ -119,5 +118,152 @@ def zodiac_sign(request):
         form = ZodiacForm()
     return render(request, "zodiac.html", {"form": form,"astro_sign":astro_sign})
 
+def cricket(request):
+    live_matches=['8746rtur']
+    page = requests.get('http://static.cricinfo.com/rss/livescores.xml') # HTTP Get request to cricinfo rss feed
+    soup = BeautifulSoup(page.text,'lxml')
+    matches = soup.find_all('description') # description tags contain the score
+    live_matches = [s.get_text() for s in matches if '*' in s.get_text()]
+    return render(request, "cricket.html",{"live_matches":live_matches})
+
+
+class YTDownloader(View):
+    def __init__(self, url=None):
+        self.url = url
+
+    def get(self, request):
+        return render(request, 'ytdownloader.html')
+
+    def post(self, request):
+        try:
+            if 'fetch-vid' in request.POST:
+                self.url = request.POST.get('given_url')
+                video = YouTube(self.url)
+                vid_title, vid_thumbnail = video.title, video.thumbnail_url
+                qual, stream = [], []
+                for vid in video.streams.filter(progressive=True):
+                    qual.append(vid.resolution)
+                    stream.append(vid)
+                context = {'vid_title': vid_title, 'vid_thumbnail': vid_thumbnail,
+                           'qual': qual, 'stream': stream,
+                           'url': self.url}
+                return render(request, 'ytdownloader.html', context)
+
+            elif 'download-vid' in request.POST:
+                self.url = request.POST.get('given_url')
+                video = YouTube(self.url)
+                video_qual = video.streams[int(request.POST.get('download-vid')) - 1]
+
+                # Sanitize the video title for use as a file name
+                title = ''.join(c if c.isalnum() or c in [' ', '_'] else '' for c in video.title)
+                title = title.replace(' ', '_')
+
+                # Download the video content using requests
+                video_data = requests.get(video_qual.url).content
+
+                # Prepare the file for download using StreamingHttpResponse
+                response = StreamingHttpResponse([video_data], content_type='application/octet-stream')
+                response['Content-Disposition'] = f'attachment; filename="{title}.mp4"'
+                return response
+
+        except (RegexMatchError, VideoUnavailable) as e:
+            context = {'message': f"Error: {str(e)}. Try again!!!"}
+            return render(request, 'ytdownloader.html', context)
+
+        return render(request, 'ytdownloader.html')
+
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.views import View
+from pdf2docx import Converter
+import io
+from django.conf import settings
+
+def handle_uploaded_file(uploaded_file):
+    file_name = uploaded_file.name
+    file_path = os.path.join(settings.MEDIA_ROOT, 'pdftodocx', 'uploads', file_name)
+    
+    # Check if the file exists; if it does, append a number to the filename
+    if os.path.exists(file_path):
+        base, ext = os.path.splitext(file_path)
+        counter = 1
+        while os.path.exists(file_path):
+            file_path = f"{base}_{counter}{ext}"
+            counter += 1
+    
+    with open(file_path, 'wb+') as destination:
+        for chunk in uploaded_file.chunks():
+            destination.write(chunk)
+
+    return file_path
+
+from django.http import HttpResponse
+from io import BytesIO
+from pdf2docx import Converter
+
+class ConvertPDFToDOCXView(View):
+    template_name = 'docx_pdf.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        if request.method == 'POST' and request.FILES.get('pdf_file'):
+            file_path = request.FILES['pdf_file']
+            #ifile_path = handle_uploaded_file(pdf_file)
+
+            # Initialize BytesIO object to store the converted DOCX file
+            docx_data = BytesIO()
+
+            # Convert PDF to DOCX using pdf2docx
+            try:
+                with open(file_path, 'rb') as pdf:
+                    pdf_content = pdf.read()
+                    converter = Converter(BytesIO(pdf_content))
+                    converter.convert(docx_data)
+
+                converter.close()
+
+                # Prepare the response for downloading the DOCX file
+                response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                response['Content-Disposition'] = 'attachment; filename="converted_document.docx"'
+                response.write(docx_data.getvalue())
+
+                return response
+            except Exception as e:
+                return HttpResponse(f"Conversion error: {str(e)}")
+
+        return render(request, self.template_name)
 def about(request):
     return render(request, "about.html")
+def convert_and_download(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            pdf_file = request.FILES['pdf_file']
+
+            # Create a temporary file to store the PDF content
+
+            # Perform the PDF to DOCX conversion
+            docx_file = convert_pdf_to_docx(pdf_file)
+
+            # Serve the converted DOCX file as a response
+            with open(docx_file, 'rb') as docx_content:
+                response = HttpResponse(docx_content.read(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                response['Content-Disposition'] = f'attachment; filename=converted.docx'
+                return response
+    else:
+        form = DocumentForm()
+    
+    return render(request, 'docx_pdf.html', {'form': form})
+
+def convert_pdf_to_docx(pdf_file_path):
+    # Create a temporary DOCX file path
+    docx_file_path = tempfile.mktemp(suffix='.docx')
+
+    # Convert PDF to DOCX using pdf2docx
+    cv = Converter(pdf_file_path)
+    cv.convert(docx_file_path, start=0, end=None)
+    cv.close()
+
+    return docx_file_path

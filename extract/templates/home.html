@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS link -->
+
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/custom.css' %}">
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% include 'footer.html' %}
+
+    <div class="container text-center mt-5">
+        <h1>Welcome to Data Extraction</h1>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                <ul class="list-unstyled">
+                    <li class="mb-4">
+                        <a href="{% url 'image_extraction' %}" class="btn btn-primary btn-lg btn-block">Image Data Extraction</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'pdf_extraction' %}" class="btn btn-primary btn-lg btn-block">PDF Data Extraction</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JS link -->
+</body>
+</html>

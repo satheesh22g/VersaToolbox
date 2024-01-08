@@ -1,0 +1,87 @@
+<!-- quotegenerator/templates/quotegenerator/quote.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generated Quote</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 3rem;
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .quote-banner {
+            background-color: #007bff;
+
+            color: white;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-style: italic;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .quote-banner:hover {
+            transform: scale(1.05);
+        }
+        .generate-btn {
+            display: block;
+            width: 240px;
+            margin: auto;
+            color: #007bff;
+            background-color: transparent;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 15px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .generate-btn:hover {
+            background-color: #007bff;
+            color: white;
+        }
+        .quote-banner:hover p {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="quote-banner" id="quoteText" onclick="copyToClipboard()">
+                    <p>{{ quote }}</p>
+                    <p style="text-align: right;font-size: medium;">~ {{ author }}</p>
+                </div>
+                <div class="text-center">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Generate Another Quote</button>
+                </form>
+            </div>
+          
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            var quoteText = document.getElementById("quoteText");
+            var textArea = document.createElement("textarea");
+            textArea.value = quoteText.innerText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("Copy");
+            textArea.remove();
+            alert("Quote copied to clipboard!");
+        }
+    </script>
+</body>
+</html>

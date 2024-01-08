@@ -1,0 +1,35 @@
+<!-- quotegenerator/templates/quotegenerator/generate_quote.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Quote</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 3rem;
+        }
+        .quote-container {
+            max-width: 600px;
+            margin: auto;
+            margin-top: 35px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container">
+        <div class="quote-container">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h1 class="card-title">Generate Quote</h1>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Generate Random Quote</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

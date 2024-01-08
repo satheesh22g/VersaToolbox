@@ -1,0 +1,63 @@
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Marks Are Calculated</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .banner {
+            background-color: #f8f9fa;
+            margin-top: 75px;
+            text-align: center;
+            background-color: #cff1f7;
+        }
+
+        .banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+
+    {% include 'nav.html' %}
+    <div class="container banner">
+        <h1>How Marks Are Calculated</h1>
+        <p>
+            The uniqueness of the content is assessed by comparing the text submitted by the user 
+            with existing data in our database. The comparison involves analyzing the similarity 
+            between the submitted text and other texts available. Marks are then calculated 
+            based on the percentage of similarity.
+        </p>
+        <p>
+            Please note that this calculation method is designed to encourage originality and 
+            discourage plagiarism, thereby fostering academic integrity and authenticity.
+        </p>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="{% static 'images/smilarity_graph.png' %}" class="img-fluid" alt="Similarity Graph">  
+            
+            </div>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
