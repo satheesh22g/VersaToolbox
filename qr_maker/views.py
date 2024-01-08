@@ -1,41 +1,29 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 import qrcode
-from .forms import QRForm,YtMp3Form,MobileForm,ZodiacForm, UploadFileForm
-from PIL import Image
-#import youtube_dl
+from .forms import QRForm,MobileForm,ZodiacForm
 import phonenumbers
 from phonenumbers import carrier, geocoder,timezone
 import requests
 from bs4 import BeautifulSoup
 from django.views.generic import View
-from pytube import YouTube
-from django.shortcuts import render,redirect
-from django.http import HttpResponse, FileResponse
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404
-from .models import Document
+from django.http import HttpResponse
 from .forms import DocumentForm
 from pdf2docx import Converter
-import os
-import tempfile
 # views.py
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.views import View
-from django.template.loader import render_to_string
-from docx import Document
-import tempfile
 import os
-from django.shortcuts import render
 from django.http import HttpResponse
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.views import View
-import pypandoc
 import tempfile
-import os
-import io
+
+# youtuble
+
+from pytube import YouTube
+from pytube.exceptions import RegexMatchError, VideoUnavailable
+from django.http import StreamingHttpResponse
+from pytube import YouTube
+import requests
+
 def index(request):
     return render(request,'index.html')
 
@@ -138,19 +126,6 @@ def cricket(request):
     live_matches = [s.get_text() for s in matches if '*' in s.get_text()]
     return render(request, "cricket.html",{"live_matches":live_matches})
 
-from django.views import View
-from django.shortcuts import render
-from django.http import FileResponse
-from pytube import YouTube
-from pytube.exceptions import RegexMatchError, VideoUnavailable
-
-from django.views import View
-from django.shortcuts import render
-from django.http import StreamingHttpResponse
-from pytube import YouTube
-from pytube.exceptions import RegexMatchError, VideoUnavailable
-import requests
-import io
 
 class YTDownloader(View):
     def __init__(self, url=None):
