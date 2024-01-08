@@ -22,6 +22,9 @@ youtube-dl==2021.12.17
 pdf2docx
 pytesseract
 PyPDF2
+faker
 pypandoc
 img2pdf
 fitz
+djangorestframework
+scikit-learn

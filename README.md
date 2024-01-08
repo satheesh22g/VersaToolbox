@@ -10,6 +10,11 @@ VersaToolbox offers a range of functionalities:
 - **MP3 Converter**
 - **PDF to Document Converter**
 - **Zodiac Sign Calculator**
+- **Cricket Live Score**
+- **Document/Image OCR**
+- **Plagiarism Checker**
+- **Fake Data Generator**
+- **Quote Generator**
 - **And More**
 
 ## Live Demo
