@@ -1,0 +1,73 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'index-content.css' %}">
+
+    <title>File Convertor</title>
+</head>
+<body>
+
+{% include 'nav.html' %}
+
+<div class="text-center mt-5">
+    <br>
+    <h1 class="mb-4" style="font-family: 'Comic Sans MS', cursive; color: #007bff;">Explore the File Conversion Hub</h1>
+    <h2 class="mb-5" style="font-family: 'Comic Sans MS', cursive; color: #333;">Choose a conversion tool below:</h2>
+</div>
+
+
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 text-center" style="opacity: 1;" onclick="location.href='/jpgtopdf/'">
+            <div class="content-box" >
+                <img title="JPG to PDF" class="finbyz-icon img-responsive"
+                     src="{% static 'icons/pdf.png' %}">
+                <h4 style="margin-top: 5px" class="content-box-title">JPG to PDF</h4>
+                <p class="content-box-sub">Convert your jpg images to pdf.</p>
+            </div>
+        </div>
+        <div class="col-md-4" style="opacity: 1;" onclick="location.href='/pdftojpg/'">
+            <div class="content-box text-center">
+                <img title="PDF to JPG" class="finbyz-icon img-responsive"
+                     src="{% static 'icons/jpg.png' %}">
+                <h4 style="margin-top: 5px" class="content-box-title">PDF to JPG</h4>
+                <p class="content-box-sub">Extract your jpg images from a pdf file.</p>
+            </div>
+        </div>
+        <div class="col-md-4" style="opacity: 1;">
+            <div class="content-box text-center">
+                <img title="PDF to DOCX" class="finbyz-icon img-responsive"
+                     src="{% static 'icons/docx.png' %}">
+                <h4 style="margin-top: 5px" class="content-box-title">PDF to DOCX</h4>
+                <p class="content-box-sub">Convert your pdf document to docx format</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>
