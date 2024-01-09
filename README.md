@@ -8,8 +8,16 @@ VersaToolbox offers a range of functionalities:
 
 - **QR Code Scanner and Generator**
 - **MP3 Converter**
-- **PDF to Document Converter**
+- **File Converter**
 - **Zodiac Sign Calculator**
+- **Cricket Live Score**
+- **Phone Number Details**
+- **Data Extraction from Image/PDF**
+- **Plagarism Detector**
+- **Fake Address Generator**
+- **Quote Generator**
+- **Recipe Generator**
+- 
 - **And More**
 
 ## Live Demo
