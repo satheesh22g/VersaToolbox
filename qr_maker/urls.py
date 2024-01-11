@@ -5,7 +5,7 @@ from .views import ConvertPDFToDOCXView
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path('dashboard/', views.dashboard),
+    path('dashboard/', views.dashboard,name="dashboard"),
     path('qr/',views.qr),
     path('mobile_number/',views.mobile_number),
     path('zodiac_sign/',views.zodiac_sign),
