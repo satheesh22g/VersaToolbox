@@ -1,48 +1,89 @@
-
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <style>
-  
-        .navbar {
-            background-color: #333;
-            color: #fff;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            margin: 0;
-            z-index: 100;
-        }
+    /* Your custom styles */
+    .navbar {
+      background-color: #333;
+      color: #fff;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      margin: 0;
+      z-index: 100;
+    }
 
-        .navbar h1 {
-            margin: 0;
-            font-size: 24px;
-        }
+    .navbar h1 {
+      margin: 0;
+      font-size: 20px;
+    }
 
-        .navbar a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s ease;
+    }
 
-        .navbar a:hover {
-            color: #e0e0e0;
-        }
-    </style>
+    .navbar-nav .nav-item.dropdown:hover .dropdown-menu {
+      display: block;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="navbar">
-        <h1><a href="/dashboard">My Dashboard</a></h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-        </nav>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <h1><a class="navbar-brand" href="/dashboard">VersaToolbox</a></h1>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Dashboard</a>
+        </li>
+
+        {% if username %}
+        <li class="nav-item">
+          <a class="nav-link">
+            {{ username }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">Profile</a>
+        </li>
+        {% else %}
+        <a class="nav-link" href="/login">Login</a>
+        {% endif %}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        {% if username %}
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        {% endif %}
+      </ul>
     </div>
+  </nav>
+  <div>
+    {% block content %}{% endblock %}
+  </div>
+  <!-- Rest of your content -->
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+</html>

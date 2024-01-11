@@ -30,6 +30,9 @@ ALLOWED_HOSTS = ['*']
 
 # settings.py
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -40,7 +43,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'rest_framework', 'static'),
 ]
 
-AUTH_USER_MODEL = 'authentications.User'
+#AUTH_USER_MODEL = 'authentications.User'
 
 
 INSTALLED_APPS = [
@@ -56,11 +59,12 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'fetch_data',
-    'authentications',
     'TextForge',
     'quotegenerator',
     'convertor',
     'mealrecipes',
+     'users',
+    
 
 ]
 
@@ -92,6 +96,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'users.context_processors.common_context',
             ],
         },
     },
@@ -110,6 +115,12 @@ DATABASES = {
     }
 }
 
+
+AUTHENTICATION_BACKENDS = [
+    'users.backends.CustomUserAuthentication',
+    'django.contrib.auth.backends.ModelBackend',
+    # ... other backends
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
