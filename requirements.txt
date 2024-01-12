@@ -20,6 +20,7 @@ urllib3==1.26.6
 gunicorn
 youtube-dl==2021.12.17
 pdf2docx
+djangorestframework
 pytesseract
 PyPDF2
 pypandoc
