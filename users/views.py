@@ -50,8 +50,10 @@ class ProfileView(View):
     template_name = 'profile.html'
 
     def get(self, request):
+        user = request.user
+        print(user)
         # Fetch user data or use the user_id to customize the profile page
-        user =  request.session.get('username') # Replace with your user retrieval logic
+        # user =  request.session.get('username') # Replace with your user retrieval logic
 
         context = {'user': user}
         return render(request, self.template_name, context)

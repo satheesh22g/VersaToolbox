@@ -16,10 +16,6 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-@rnlzud8lpc7u6byqr9q6@@z4m%^w#@b$i)hexklg+*7)+$!$d'
 
@@ -28,9 +24,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# settings.py
+
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
 
 
 MEDIA_URL = '/media/'
@@ -65,8 +66,7 @@ INSTALLED_APPS = [
     'mealrecipes',
      'users',
      'bootstrap4',
-    
-
+     'expense_tracker',
 ]
 
 MIDDLEWARE = [
