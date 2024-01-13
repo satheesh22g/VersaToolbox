@@ -1,65 +1,94 @@
+<!-- templates/contact_messages/list_messages.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Contact Messages</title>
     <!-- Link Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="csrf-token" content="{% csrf_token %}">
     <!-- Custom Styles -->
     <style>
-    .message-container {
-            position: relative; /* Establish positioning context */
+        body {
+            background-color: #f8f9fa;
+        }
+        .message-container {
+            position: relative;
             margin-bottom: 20px;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease; /* Smooth color transition */
-            cursor: pointer; /* Change cursor to pointer to indicate clickable */
-            height: 120px; /* Adjust the height here */
-            overflow: hidden; /* Hide overflow content */
-            display: flex; /* Use flexbox */
-            flex-direction: column; /* Set flex direction */
-            justify-content: space-between; /* Space content evenly */
+            padding: 15px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 150px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .message-header {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
-            overflow: hidden; /* Truncate text */
-            text-overflow: ellipsis; /* Show ellipsis for overflow text */
-            white-space: nowrap; /* Prevent wrapping */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #000; /* Black text color */
         }
         .message-details {
             font-size: 14px;
-            color: #888;
+            color: #000; /* Black text color */
+            margin-bottom: 5px; /* Add margin for better spacing */
         }
         .message-time {
             position: absolute;
             top: 10px;
             right: 10px;
             font-size: 12px;
-            color: #888;
+            color: #000; /* Black text color */
+        }
+        .read-message,
+        .unread-message {
+            border: 1px solid transparent; /* Maintain consistent border */
         }
         .read-message {
-            background-color: #f0f0f0; /* Color for read messages */
+            background-color: #cce5ff; /* Light Blue for read messages */
         }
         .unread-message {
-            background-color: #e2f5ff; /* Color for unread messages */
+            background-color: #ffebee; /* Light Red for unread messages */
         }
         .status-indicator {
             font-size: 12px;
             font-weight: bold;
+            color: #007bff; /* Blue for read status */
+            margin-top: 5px; /* Add margin for better spacing */
+        }
+        .container {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 60px;
+            
+        }
+        h1 {
+            color: #007bff;
+            text-align: center; /* Center-align the heading */
         }
     </style>
 </head>
 <body>
     {% include 'nav.html' %}
-    <div class="container">
+    <div class="container" >
         <h1>Contact Messages</h1>
+        <p style="text-align: center;">Messages from API endpoint</p>
         {% if messages %}
             {% for message in messages %}
                 <div class="message-container {% if message.read %}read-message{% else %}unread-message{% endif %}" data-toggle="modal" data-target="#messageModal{{ message.id }}" onclick="markAsRead('{{ message.id }}', this)">
-                    <h4>{{ message.name }}</h4>
-                    <hr>
-                    <p><strong>Subject:</strong> {{ message.subject }}</p>
-                    <p><strong>Email:</strong> {{ message.email }}</p>
+                    <h4 class="message-header">{{ message.name }}</h4>
+                    <p class="message-details"><strong>Subject:</strong> {{ message.subject }}</p>
+                    <p class="message-details"><strong>Email:</strong> {{ message.email }}</p>
                     <p class="message-details"><strong>Sent on:</strong> {{ message.sent_at }}</p>
                     <p class="status-indicator">{% if message.read %}Read{% else %}Unread{% endif %}</p>
                 </div>
@@ -75,10 +104,9 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <h4>{{ message.name }}</h4>
-                                <hr>
-                                <p><strong>Subject:</strong> {{ message.subject }}</p>
-                                <p><strong>Email:</strong> {{ message.email }}</p>
+                                <h4 class="message-header">{{ message.name }}</h4>
+                                <p class="message-details"><strong>Subject:</strong> {{ message.subject }}</p>
+                                <p class="message-details"><strong>Email:</strong> {{ message.email }}</p>
                                 <p class="message-details"><strong>Sent on:</strong> {{ message.sent_at }}</p>
                                 <p><strong>Message:</strong> {{ message.message }}</p>
                             </div>
@@ -96,30 +124,52 @@
     <!-- Link Bootstrap JS and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        function markAsRead(messageId, element) {
-            if (element.classList.contains('unread-message')) {
-                element.classList.remove('unread-message');
-                element.classList.add('read-message');
-                const statusIndicator = element.querySelector('.status-indicator');
-                statusIndicator.innerText = 'Read';
+    <!-- templates/contact_messages/list_messages.html -->
+<!-- ... (previous HTML code) ... -->
 
-                // Send an asynchronous request to mark the message as read
-                fetch(`/api/mark_as_read/${messageId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    // You might need to pass additional data or credentials here
-                })
-                .then(response => {
-                    // Handle success or errors
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            }
+<!-- templates/contact_messages/list_messages.html -->
+
+<!-- templates/contact_messages/list_messages.html -->
+
+<script>
+    function markAsRead(messageId, element) {
+        if (element.classList.contains('unread-message')) {
+            element.classList.remove('unread-message');
+            element.classList.add('read-message');
+            const statusIndicator = element.querySelector('.status-indicator');
+            statusIndicator.innerText = 'Read';
+
+            // Send an asynchronous request to mark the message as read
+            const csrftoken = document.head.querySelector('[name="csrf-token"]').content;
+            
+
+            fetch(`/mark-as-read/${messageId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+            })
+            .then(response => {
+                // Handle success or errors
+                if (!response.ok) {
+                    // Revert changes if there is an error
+                    element.classList.remove('read-message');
+                    element.classList.add('unread-message');
+                    statusIndicator.innerText = 'Unread';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Revert changes if there is an error
+                element.classList.remove('read-message');
+                element.classList.add('unread-message');
+                statusIndicator.innerText = 'Unread';
+            });
         }
-    </script>
+    }
+</script>
+
+<!-- ... (remaining HTML code) ... -->
 </body>
 </html>

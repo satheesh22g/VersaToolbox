@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'convertor',
     'mealrecipes',
      'users',
+     'bootstrap4',
     
 
 ]
