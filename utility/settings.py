@@ -71,7 +71,6 @@ INSTALLED_APPS = [
      'users',
      'bootstrap4',
      'expense_tracker',
-    
 
 ]
 
