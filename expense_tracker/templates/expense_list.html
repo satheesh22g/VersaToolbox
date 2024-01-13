@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense List</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    {% include 'nav.html' %}
+    <div class="container py-5 mt-5">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h2 class="mb-0">Expense List</h2>
+                <div id="total-cost" class="font-weight-bold text-success"></div>
+            </div>
+            <div class="card-body">
+                <ul id="expense-list" class="list-group">
+                    {% for expense in expenses %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span class="expense-info">{{ expense }}</span>
+                        <form method="post" action="{% url 'delete_expense' expense.id %}" class="ml-2">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="card-footer text-right">
+                <a href="{% url 'add_expense' %}" class="btn btn-dark">Add Expense</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS (jQuery, Popper.js, Bootstrap JS) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Include your JavaScript -->
+    <script>
+        // Calculate and update total cost
+        function updateTotalCost() {
+            var totalCost = 0;
+            $('#expense-list li').each(function () {
+                var costText = $(this).find('.expense-info').text().trim();
+                // Assuming the cost is at the end of the text and preceded by "$"
+                var cost = parseFloat(costText.split('$').pop().replace(',', '').trim());
+                if (!isNaN(cost)) {
+                    totalCost += cost;
+                }
+            });
+
+            $('#total-cost').text('Total Cost: $' + totalCost.toFixed(2));
+        }
+
+        // Call updateTotalCost initially
+        updateTotalCost();
+
+        // Use fetch to update total cost after deleting an expense
+        document.querySelectorAll('#expense-list form').forEach(function (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                console.log('Button clicked!');
+
+                fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                })
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json(); // You may need to adjust this depending on your server's response
+                    })
+                    .then(function (data) {
+                        form.closest('li').remove();
+                        console.log('Expense deleted successfully!');
+                        updateTotalCost();
+                    })
+                    .catch(function (error) {
+                        console.error('Error:', error.message);
+                    });
+            });
+        });
+    </script>
+</body>
+
+</html>

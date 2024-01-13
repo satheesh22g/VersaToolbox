@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Expense</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include Flatpickr library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+
+<body>
+    {% include 'nav.html' %}
+    <div class="container py-5 mt-5">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="mb-0">Add Expense</h2>
+                    <a href="{% url 'expense_list' %}" class="btn btn-secondary">Back</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="{{ form.amount.id_for_label }}" class="col-sm-2 col-form-label">Amount</label>
+                        <div class="col-sm-10">
+                            {{ form.amount }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="{{ form.date.id_for_label }}" class="col-sm-2 col-form-label">Date</label>
+                        <div class="col-sm-10">
+                            {{ form.date }}
+                            <!-- Initialize Flatpickr on the date field -->
+                            <script>
+                                flatpickr("#id_date", { dateFormat: "Y-m-d" });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="{{ form.category.id_for_label }}" class="col-sm-2 col-form-label">Category</label>
+                        <div class="col-sm-10">
+                            {{ form.category }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="{{ form.description.id_for_label }}" class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-10">
+                            {{ form.description }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10 offset-sm-2">
+                            <button type="submit" class="btn btn-primary">Save Expense</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS (jQuery, Popper.js, Bootstrap JS) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
