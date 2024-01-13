@@ -30,5 +30,6 @@ urlpatterns = [
     path("", include('mealrecipes.urls')),
     path("", include('convertor.urls')),
     path("", include('users.urls')),
+    path("", include('expense_tracker.urls')),
     path("admin/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

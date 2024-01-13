@@ -28,9 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# settings.py
+
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
 
 
 MEDIA_URL = '/media/'
@@ -65,6 +70,7 @@ INSTALLED_APPS = [
     'mealrecipes',
      'users',
      'bootstrap4',
+     'expense_tracker',
     
 
 ]
