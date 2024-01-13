@@ -8,13 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 from django.views.generic import View
 from django.http import HttpResponse
-from .forms import DocumentForm
-from pdf2docx import Converter
-# views.py
-import os
-from django.http import HttpResponse
 from django.views import View
-import tempfile
 
 # youtuble
 
@@ -172,98 +166,8 @@ class YTDownloader(View):
 
         return render(request, 'ytdownloader.html')
 
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.views import View
-from pdf2docx import Converter
-import io
-from django.conf import settings
 
-def handle_uploaded_file(uploaded_file):
-    file_name = uploaded_file.name
-    file_path = os.path.join(settings.MEDIA_ROOT, 'pdftodocx', 'uploads', file_name)
-    
-    # Check if the file exists; if it does, append a number to the filename
-    if os.path.exists(file_path):
-        base, ext = os.path.splitext(file_path)
-        counter = 1
-        while os.path.exists(file_path):
-            file_path = f"{base}_{counter}{ext}"
-            counter += 1
-    
-    with open(file_path, 'wb+') as destination:
-        for chunk in uploaded_file.chunks():
-            destination.write(chunk)
-
-    return file_path
-
-from django.http import HttpResponse
-from io import BytesIO
-from pdf2docx import Converter
-
-class ConvertPDFToDOCXView(View):
-    template_name = 'docx_pdf.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
-
-    def post(self, request):
-        if request.method == 'POST' and request.FILES.get('pdf_file'):
-            file_path = request.FILES['pdf_file']
-            #ifile_path = handle_uploaded_file(pdf_file)
-
-            # Initialize BytesIO object to store the converted DOCX file
-            docx_data = BytesIO()
-
-            # Convert PDF to DOCX using pdf2docx
-            try:
-                with open(file_path, 'rb') as pdf:
-                    pdf_content = pdf.read()
-                    converter = Converter(BytesIO(pdf_content))
-                    converter.convert(docx_data)
-
-                converter.close()
-
-                # Prepare the response for downloading the DOCX file
-                response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                response['Content-Disposition'] = 'attachment; filename="converted_document.docx"'
-                response.write(docx_data.getvalue())
-
-                return response
-            except Exception as e:
-                return HttpResponse(f"Conversion error: {str(e)}")
-
-        return render(request, self.template_name)
 def about(request):
     return render(request, "about.html")
-def convert_and_download(request):
-    if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            pdf_file = request.FILES['pdf_file']
 
-            # Create a temporary file to store the PDF content
 
-            # Perform the PDF to DOCX conversion
-            docx_file = convert_pdf_to_docx(pdf_file)
-
-            # Serve the converted DOCX file as a response
-            with open(docx_file, 'rb') as docx_content:
-                response = HttpResponse(docx_content.read(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                response['Content-Disposition'] = f'attachment; filename=converted.docx'
-                return response
-    else:
-        form = DocumentForm()
-    
-    return render(request, 'docx_pdf.html', {'form': form})
-
-def convert_pdf_to_docx(pdf_file_path):
-    # Create a temporary DOCX file path
-    docx_file_path = tempfile.mktemp(suffix='.docx')
-
-    # Convert PDF to DOCX using pdf2docx
-    cv = Converter(pdf_file_path)
-    cv.convert(docx_file_path, start=0, end=None)
-    cv.close()
-
-    return docx_file_path
