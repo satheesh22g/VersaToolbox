@@ -12,6 +12,8 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 
+<!-- ... -->
+
 <body>
     {% include 'nav.html' %}
     <div class="container py-5 mt-5">
@@ -25,34 +27,62 @@
             <div class="card-body">
                 <form method="post" action="">
                     {% csrf_token %}
+
                     <div class="form-group row">
-                        <label for="{{ form.amount.id_for_label }}" class="col-sm-2 col-form-label">Amount</label>
+                        <label for="id_amount" class="col-sm-2 col-form-label">Amount</label>
                         <div class="col-sm-10">
-                            {{ form.amount }}
+                            <input type="number" name="amount" class="form-control" id="id_amount" required style="background-color: #f8f9fa; color: #000;">
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        <label for="{{ form.date.id_for_label }}" class="col-sm-2 col-form-label">Date</label>
+                        <label for="id_date" class="col-sm-2 col-form-label">Date</label>
                         <div class="col-sm-10">
-                            {{ form.date }}
+                            <input type="text" name="date" class="form-control" id="id_date" required style="background-color: #f8f9fa; color: #000;">
                             <!-- Initialize Flatpickr on the date field -->
                             <script>
                                 flatpickr("#id_date", { dateFormat: "Y-m-d" });
                             </script>
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        <label for="{{ form.category.id_for_label }}" class="col-sm-2 col-form-label">Category</label>
+                        <label for="id_category" class="col-sm-2 col-form-label">Category</label>
                         <div class="col-sm-10">
-                            {{ form.category }}
+                            <div class="input-group">
+                                <input list="categories" name="category" id="id_category" class="form-control" required>
+                                <datalist id="categories">
+                                    <option value="Food">
+                                    <option value="Travel">
+                                    <option value="Utilities">
+                                    <option value="Clothing">
+                                    <option value="Healthcare">
+                                    <option value="Education">
+                                    <option value="Electronics">
+                                    <option value="Other">
+                                    <!-- Additional categories -->
+                                    <option value="E-commerce">
+                                    <option value="Sports">
+                                    <option value="Home Improvement">
+                                    <option value="Hobbies">
+                                    <option value="Automotive">
+                                    <!-- Add more categories as needed -->
+                                </datalist>
+                                <div class="input-group-append">
+                                    <label class="input-group-text" for="id_category">Category</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    
+
                     <div class="form-group row">
-                        <label for="{{ form.description.id_for_label }}" class="col-sm-2 col-form-label">Description</label>
+                        <label for="id_description" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-sm-10">
-                            {{ form.description }}
+                            <textarea name="description" class="form-control" id="id_description" required style="background-color: #f8f9fa; color: #000;"></textarea>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <div class="col-sm-10 offset-sm-2">
                             <button type="submit" class="btn btn-primary">Save Expense</button>

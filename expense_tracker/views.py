@@ -3,6 +3,10 @@ from django.views import View
 from .models import Expense
 from .forms import ExpenseForm
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.http import JsonResponse
+
+
 
 @login_required
 def expense_list(request):
@@ -22,8 +26,13 @@ def add_expense(request):
         form = ExpenseForm()
     return render(request, 'add_expense.html', {'form': form})
 
+
 @login_required
 def delete_expense(request, expense_id):
     expense = Expense.objects.get(id=expense_id)
     expense.delete()
-    return redirect('expense_list')
+    redirect_url = reverse('expense_list')
+    return JsonResponse({'message': 'Expense deleted successfully', 'redirect_url': redirect_url})
+
+
+
