@@ -67,6 +67,7 @@ INSTALLED_APPS = [
      'users',
      'bootstrap4',
      'expense_tracker',
+     'quiz'
 ]
 
 MIDDLEWARE = [
@@ -146,6 +147,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+USE_TZ = False
+
+TIME_ZONE = 'UTC' 
+
 
 TIME_ZONE = 'UTC'
 
