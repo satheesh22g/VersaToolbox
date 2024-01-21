@@ -13,8 +13,8 @@
 </head>
 
 <body>
-    {% include 'nav.html' %}
-    <div class="container py-5 mt-5">
+  {% include 'nav.html' %}
+  <div class="container py-5 mt-5">
     <h2 class="mb-4">Leaderboard - {{ quiz.title }}</h2>
 
     {% if leaderboard %}
@@ -22,16 +22,16 @@
         <thead>
           <tr>
             <th>User</th>
-            <th>Quiz</th>
-            <th>Score</th>
+            <th>Total Score</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {% for entry in leaderboard %}
             <tr>
-              <td>{{ entry.user.username }}</td>
-              <td>{{ entry.quiz.title }}</td>
-              <td>{{ entry.score }}</td>
+              <td>{{ entry.user__username }}</td>
+              <td>{{ entry.total_score }}</td>
+              <td><a href="{% url 'user_scores' username=entry.user__username %}">View Scores</a></td>
             </tr>
           {% endfor %}
         </tbody>
