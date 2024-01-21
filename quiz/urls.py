@@ -1,9 +1,10 @@
-# quiz/urls.py
 from django.urls import path
-from .views import quiz_list, take_quiz, leaderboard
+from .views import quiz_list, take_quiz, create_quiz, delete_quiz, leaderboard
 
 urlpatterns = [
     path('quizzes/', quiz_list, name='quiz_list'),
-    path('quizzes/<int:quiz_id>/take/', take_quiz, name='take_quiz'),
-    path('quizzes/leaderboard/', leaderboard, name='leaderboard'),
+    path('quiz/<int:quiz_id>/', take_quiz, name='take_quiz'),
+    path('create_quiz/', create_quiz, name='create_quiz'),
+    path('delete_quiz/<int:quiz_id>/', delete_quiz, name='delete_quiz'),
+    path('leaderboard/', leaderboard, name='leaderboard'),
 ]

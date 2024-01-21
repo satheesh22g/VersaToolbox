@@ -1,0 +1,88 @@
+<!-- quiz/templates/quiz/create_quiz.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Quiz</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container mt-5">
+    <form id="quiz-form" method="post" action="{% url 'create_quiz' %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <input type="text" class="form-control" name="title" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="category" class="form-label">Category:</label>
+        <input type="text" class="form-control" name="category" required>
+      </div>
+      
+      <h3>Questions:</h3>
+      <div id="questions-container">
+        <div class="question-form mb-4">
+          <label for="questions-text" class="form-label">Question:</label>
+          <input type="text" class="form-control" name="questions-text" required>
+          
+          <div class="row mt-3">
+            <div class="col-md-6 mb-3">
+              <label for="option-1" class="form-label">Option 1:</label>
+              <input type="text" class="form-control" name="option-1" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="option-2" class="form-label">Option 2:</label>
+              <input type="text" class="form-control" name="option-2" required>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="option-3" class="form-label">Option 3:</label>
+              <input type="text" class="form-control" name="option-3" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="option-4" class="form-label">Option 4:</label>
+              <input type="text" class="form-control" name="option-4" required>
+            </div>
+          </div>
+          
+          <label for="correct-option" class="form-label">Correct Option (1 to 4):</label>
+          <input type="number" class="form-control" name="correct-option" required>
+        </div>
+      </div>
+    
+      <button type="button" id="add_question" class="btn btn-secondary">Add Question</button>
+      <button type="submit" class="btn btn-primary">Create Quiz</button>
+    </form>
+
+    <script>
+      var questionCounter = 1;
+    
+      document.getElementById('add_question').addEventListener('click', function() {
+        questionCounter++;
+        var newQuestionForm = document.querySelector('.question-form').cloneNode(true);
+        newQuestionForm.querySelector('input[name="questions-text"]').value = '';
+        newQuestionForm.querySelector('input[name="option-1"]').value = '';
+        newQuestionForm.querySelector('input[name="option-2"]').value = '';
+        newQuestionForm.querySelector('input[name="option-3"]').value = '';
+        newQuestionForm.querySelector('input[name="option-4"]').value = '';
+        newQuestionForm.querySelector('input[name="correct-option"]').value = '';
+        newQuestionForm.querySelector('label[for="questions-text"]').textContent = 'Question ' + questionCounter + ':';
+        document.getElementById('questions-container').appendChild(newQuestionForm);
+      });
+    </script>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </div>
+</body>
+
+</html>
