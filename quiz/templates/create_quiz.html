@@ -11,7 +11,8 @@
 </head>
 
 <body>
-  <div class="container mt-5">
+    {% include 'nav.html' %}
+  <div class="container py-5 mt-5">
     <form id="quiz-form" method="post" action="{% url 'create_quiz' %}">
       {% csrf_token %}
       <div class="mb-3">

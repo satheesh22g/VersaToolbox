@@ -61,9 +61,27 @@ def calculate_score(request, questions):
 
     return score
 
+# quiz/views.py
+from django.db.models import Sum
+
 def leaderboard(request):
-    leaderboard = QuizTaker.objects.all().order_by('-score')
+    # Annotate the queryset with the total_score for each user
+    leaderboard = (
+        QuizTaker.objects
+        .values('user__username')
+        .annotate(total_score=Sum('score'))
+        .order_by('-total_score')
+    )
     return render(request, 'leaderboard.html', {'leaderboard': leaderboard})
+# quiz/views.py
+from django.shortcuts import render
+from users.models import CustomUser  # Import your custom user model
+from .models import QuizTaker
+
+def user_scores(request, username):
+    user = CustomUser.objects.get(username=username)  # Use your custom user model
+    user_scores = QuizTaker.objects.filter(user=user)
+    return render(request, 'user_scores.html', {'user_scores': user_scores})
 
 
 @staff_member_required
