@@ -1,32 +1,102 @@
 <!-- profile.html -->
 
-<html>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <title>User Profile</title>
+  <style>
+    .profile-metric {
+      border: 2px solid #17a2b8;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
 
+    .metric-value {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .interactive-button {
+      background-color: #17a2b8;
+      color: #fff;
+      border: 2px solid #17a2b8;
+      border-radius: 5px;
+      padding: 10px 20px;
+      margin-right: 10px;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .interactive-button:hover {
+      background-color: #fff;
+      color: #17a2b8;
+      border-color: #17a2b8;
+    }
+  </style>
 </head>
 
 <body>
-    {% include 'nav.html' %}
 
+  {% include 'nav.html' %}
 
-    <div class="container" style="margin-top: 90px;">
-        <h5 class="card-title">{{ user.username }}</h5>
-        <div class="card">
+  <div class="container-fluid py-5 mt-5">
+    <div class="d-flex justify-content-center mb-4">
+      <a href="{% url 'display_messages' %}" class="btn interactive-button">View Messages</a>
 
-            <div class="card-body">
-
-                <a href="{% url 'display_messages' %}" class="btn btn-primary">View Messages</a>
-                {% if user.is_superuser %}
-                <a href="/admin" class="btn btn-primary">Admin Console</a> 
-                {% else %}
-                {% endif %}
-
-            </div>
-        </div>
+      {% if user.is_superuser %}
+        <a href="{% url 'admin_user_management' %}" class="btn interactive-button">View Users</a>
+        <a href="/admin" class="btn interactive-button">Admin Console</a>
+        <a href="{% url 'password_change' %}" class="btn interactive-button">Change Password</a>
+      {% endif %}
     </div>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header text-center">
+            <h5 class="card-title">{{ user.username }}</h5>
+          </div>
+          <div class="card-body text-center">
+            <p class="card-text">Welcome to your profile {{ user.username }}!</p>
 
+            <!-- Stylish Metrics -->
+            <div class="profile-metric">
+              <h6>Total Visits</h6>
+              <p class="metric-value" id="totalVisits">0</p>
+            </div>
+
+
+            <div class="profile-metric">
+              <h6>Recent Activity</h6>
+              <p class="metric-value" id="recentActivity">0</p>
+            </div>
+
+            <!-- User Details -->
+            <div class="mb-4">
+              <h6>User Information:</h6>
+              <p>Email: {{ user.email }}</p>
+              <p>Last Login: {{ user.last_login }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Generate random metrics for demonstration
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("totalVisits").innerText = Math.floor(Math.random() * 100);
+     document.getElementById("recentActivity").innerText = Math.floor(Math.random() * 20);
+    });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 

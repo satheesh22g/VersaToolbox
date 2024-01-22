@@ -152,10 +152,10 @@ LANGUAGE_CODE = 'en-us'
 
 USE_TZ = False
 
-TIME_ZONE = 'UTC' 
+# TIME_ZONE = 'UTC' 
 
+TIME_ZONE = 'Asia/Kolkata'
 
-TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
