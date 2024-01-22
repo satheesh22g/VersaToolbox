@@ -1,0 +1,113 @@
+<!-- templates/view_reports.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Reports</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    {% include 'nav.html' %}
+
+    <div class="container py-5 mt-5">
+        <h1 class="mb-4">View Reports</h1>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="feedback-tab" data-toggle="tab" href="#feedback" role="tab" aria-controls="feedback" aria-selected="true">Feedbacks</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="error-tab" data-toggle="tab" href="#error" role="tab" aria-controls="error" aria-selected="false">Error Reports</a>
+            </li>
+        </ul>
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="feedback" role="tabpanel" aria-labelledby="feedback-tab">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Message</th>
+                            <th scope="col">Rating</th>
+                            <!-- Add more columns as needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for feedback in feedbacks %}
+                            <tr>
+                                <th scope="row">{{ feedback.id }}</th>
+                                <td>{{ feedback.user.username }}</td>
+                                <td>{{ feedback.message }}</td>
+                                <td>{{ feedback.rating }}</td>
+                                <!-- Add more columns as needed -->
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="error" role="tabpanel" aria-labelledby="error-tab">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Error Message</th>
+                            <th scope="col">Screenshot</th>
+                            <!-- Add more columns as needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for error_report in error_reports %}
+                            <tr>
+                                <th scope="row">{{ error_report.id }}</th>
+                                <td>{{ error_report.user.username }}</td>
+                                <td>{{ error_report.name }}</td>
+                                <td>{{ error_report.error_message }}</td>
+                                <td>
+                                    {% if error_report.screenshot %}
+                                        <a href="#" data-toggle="modal" data-target="#screenshotModal{{ error_report.id }}">Click here</a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="screenshotModal{{ error_report.id }}" tabindex="-1" role="dialog" aria-labelledby="screenshotModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="screenshotModalLabel">Screenshot</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <img src="{{ error_report.screenshot.url }}" alt="Screenshot" style="max-width: 100%;">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        No screenshot available
+                                    {% endif %}
+                                </td>
+                                <!-- Add more columns as needed -->
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Bootstrap and jQuery scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

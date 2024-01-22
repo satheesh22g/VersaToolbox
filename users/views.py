@@ -5,11 +5,12 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.views import View
-from .models import CustomUser
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import make_password
-
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
+from .models import Feedback, ErrorReport,CustomUser
 
 
 def user_login(request):
@@ -114,12 +115,10 @@ def password_change(request):
     if request.method == 'POST':
         # Ensure the user is authenticated before changing the password
         if request.user.is_authenticated:
-            print(2)
             # Manually set the password
             new_password = request.POST.get('cpassword')
             request.user.set_password(new_password)
             request.user.save()
-            print(3)
             # Update the session to prevent the user from being logged out
             update_session_auth_hash(request, request.user)
             print("success")
@@ -127,10 +126,56 @@ def password_change(request):
             messages.success(request, 'Password changed successfully!')
             return redirect('profile')
         else:
-            print(5)
             messages.error(request, 'User is not authenticated.')
     else:
-        print(6)
         messages.error(request, 'Invalid form submission. Please correct the errors.')
 
     return render(request, 'change_password.html')
+
+
+@login_required
+def feedback(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        message = request.POST.get('message')
+        rating = request.POST.get('rating', 0)
+
+        Feedback.objects.create(
+            name=name,
+            user=request.user,
+            message=message,
+            email=request.user.email,
+            rating=rating
+        )
+
+        return redirect('profile')
+
+    return render(request, 'feedback_form.html')
+
+@login_required
+def error_report(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        error_message = request.POST.get('error_message')
+        screenshot = request.FILES.get('screenshot')
+
+        ErrorReport.objects.create(
+            name=name,
+            user=request.user,
+            email=request.user.email,
+            error_message=error_message,
+            screenshot=screenshot
+        )
+
+        # Redirect to the profile page or any other desired page
+        return redirect('profile')
+
+    return render(request, 'error_report_form.html')
+
+@login_required
+@staff_member_required
+def view_reports(request):
+    feedbacks = Feedback.objects.all()
+    error_reports = ErrorReport.objects.all()
+    return render(request, 'view_reports.html', {'feedbacks': feedbacks,'error_reports': error_reports})
+
