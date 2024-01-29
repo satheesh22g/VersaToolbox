@@ -17,7 +17,8 @@ VersaToolbox offers a range of functionalities:
 - **Fake Address Generator**
 - **Quote Generator**
 - **Recipe Generator**
-- 
+- **Quiz**
+- **Expense Tracker**
 - **And More**
 
 ## Live Demo
