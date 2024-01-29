@@ -3,6 +3,7 @@ from django.views import View
 from .models import Expense
 from .forms import ExpenseForm
 from django.contrib.auth.decorators import login_required
+
 from django.urls import reverse
 from django.http import JsonResponse
 

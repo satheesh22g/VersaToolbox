@@ -173,3 +173,11 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# Set session timeout to 15 minutes (900 seconds)
+SESSION_COOKIE_AGE = 900
+# Save the session on every request
+SESSION_SAVE_EVERY_REQUEST = True

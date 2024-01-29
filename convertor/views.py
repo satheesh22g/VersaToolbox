@@ -8,6 +8,7 @@ from zipfile import ZipFile
 import string
 import fitz
 from PIL import Image
+from docx2pdf import convert
 
 # Create your views here.
 def convert_home(request):
@@ -93,3 +94,36 @@ def pdftojpg(request):
 
 
 
+
+def doctopdf(request):
+    if request.method == "POST":
+        # Creating a random folder name for each user
+        res = ''.join(random.choice(string.ascii_lowercase) for x in range(10))
+        path_to_upload = os.path.join('./convertor/static/uploaded_files/doc2pdf', str(res))
+        os.makedirs(path_to_upload, exist_ok=True)
+
+        files = request.FILES
+        for file in files.getlist('files'):
+            with open(os.path.join(path_to_upload, 'sample.docx'), 'wb+') as f:
+                for chunk in file.chunks():
+                    f.write(chunk)
+
+        docx_path = os.path.join(path_to_upload, 'sample.docx')
+        pdf_path = os.path.join(path_to_upload, 'converted_file.pdf')
+
+        # Convert DOCX to PDF using docx2pdf
+        try:
+            convert(docx_path, pdf_path)
+        except Exception as e:
+            return HttpResponse(f"Conversion failed: {e}")
+
+        # Provide the PDF file for download
+        if os.path.exists(pdf_path):
+            with open(pdf_path, 'rb') as pdf_file:
+                response = HttpResponse(pdf_file.read(), content_type='application/pdf')
+                response['Content-Disposition'] = 'attachment; filename="converted_file.pdf"'
+                return response
+        else:
+            return HttpResponse("Conversion failed or file not found.")
+
+    return render(request, 'doctopdf.html')

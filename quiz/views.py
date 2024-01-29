@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponseServerError
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from .models import Quiz, Question, Option, QuizTaker
 from .forms import QuizTakerForm
@@ -11,6 +12,7 @@ from .forms import QuizTakerForm
 from django.utils import timezone
 from datetime import timedelta
 
+@login_required
 def quiz_list(request):
     quizzes = Quiz.objects.all()
     return render(request, 'quiz_list.html', {'quizzes': quizzes})
