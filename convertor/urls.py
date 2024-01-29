@@ -5,4 +5,5 @@ urlpatterns = [
     path('convertor/', views.convert_home),
     path('jpgtopdf/', views.jpgToPdf),
     path('pdftojpg/', views.pdftojpg),
+    path('doctopdf/', views.doctopdf),
 ]

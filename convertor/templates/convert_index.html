@@ -19,15 +19,16 @@
 
 {% include 'nav.html' %}
 
-<div class="text-center mt-5">
-    <br>
-    <h1 class="mb-4" style="font-family: 'Comic Sans MS', cursive; color: #007bff;">Explore the File Conversion Hub</h1>
-    <h2 class="mb-5" style="font-family: 'Comic Sans MS', cursive; color: #333;">Choose a conversion tool below:</h2>
-</div>
 
 
-</div>
-<div class="container">
+
+
+<div class="container py-5 mt-5">
+    <div class="text-center">
+        <br>
+        <h1 class="mb-4" style="color: #007bff;">Explore the File Conversion Hub</h1>
+        <h2 class="mb-5" style="color: #333;">Choose a conversion tool below:</h2>
+    </div>
     <div class="row">
         <div class="col-md-4 text-center" style="opacity: 1;" onclick="location.href='/jpgtopdf/'">
             <div class="content-box" >
@@ -45,7 +46,7 @@
                 <p class="content-box-sub">Extract your jpg images from a pdf file.</p>
             </div>
         </div>
-        <div class="col-md-4" style="opacity: 1;">
+        <div class="col-md-4" style="opacity: 1;" onclick="location.href='/doctopdf/'">
             <div class="content-box text-center">
                 <img title="PDF to DOCX" class="finbyz-icon img-responsive"
                      src="{% static 'icons/docx.png' %}">

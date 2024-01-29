@@ -17,55 +17,57 @@
 </head>
 <body>
     {% include 'nav.html' %}
+<div class="container py-5 mt-5">
 
-<div>
-    <br/>
-    <H1 style="text-align: center; font-family: 'Comic Sans MS'; color: black;margin-top: 45px;">Convert your images into a pdf</H1>
-    <br/>
-</div>
 
-<div>
-    <form method="post" action="/jpgtopdf/" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div>
-            <h5 style="text-align: center">Click the icon below to upload files</h5>
-        </div>
-        <div class="image-upload">
-            <label for="files">
-                <img src="{% static 'icons/upload.png' %}"/>
-            </label>
-
-            <input id="files" type="file" name="files" accept="image/jpeg" multiple hidden/>
-        </div>
-        </br>
-        </br>
-        </br>
-        </br>
-        <div>
-            <h5 id="filecount" style="text-align: center"></h5>
-        </div>
-        <div class="buttons">
-            <button id="uploadbutton" type="submit"
-                    class="btn btn-primary " disabled>Upload
-            </button>
-            <a id="removequeue" href="/jpgtopdf/" type="button"
-                    class="btn btn-danger disabled" >Remove queue
-            </a>
-        </div>
-        </br>
-        </br>
-
-    </form>
-</div>
-</br>
-{% if url %}
-    <h5 style="text-align: center">Your file is ready for download.</h5>
+    <div>
+        <h1 style="text-align: center;">Convert your images into a pdf</h1>
+    </div>
+    
+    <div>
+        <form method="post" action="/jpgtopdf/" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <h5 style="text-align: center">Click the icon below to upload files</h5>
+            </div>
+            <div class="image-upload">
+                <label for="files">
+                    <img src="{% static 'icons/upload.png' %}"/>
+                </label>
+    
+                <input id="files" type="file" name="files" accept="image/jpeg" multiple hidden/>
+            </div>
+            </br>
+            </br>
+            </br>
+            </br>
+            <div>
+                <h5 id="filecount" style="text-align: center"></h5>
+            </div>
+            <div class="buttons">
+                <button id="uploadbutton" type="submit"
+                        class="btn btn-primary " disabled>Upload
+                </button>
+                <a id="removequeue" href="/jpgtopdf/" type="button"
+                        class="btn btn-danger disabled" >Remove queue
+                </a>
+            </div>
+            </br>
+            </br>
+    
+        </form>
+    </div>
     </br>
-    <a style="margin:0 auto;display: block; width: 100px" type="button" class="btn btn-primary" href="../static/uploaded_files/jpg2pdf/{{ url }}/sample.txt" download="output.pdf">Download</a>
-{% endif %}
+    {% if url %}
+        <h5 style="text-align: center">Your file is ready for download.</h5>
+        </br>
+        <a style="margin:0 auto;display: block; width: 100px" type="button" class="btn btn-primary" href="../static/uploaded_files/jpg2pdf/{{ url }}/sample.txt" download="output.pdf">Download</a>
+    {% endif %}
+    
+    <div class="container quote-imgs-thumbs quote-imgs-thumbs--hidden" id="result" aria-live="polite"></div>
+    
 
-<div class="container quote-imgs-thumbs quote-imgs-thumbs--hidden" id="result" aria-live="polite"></div>
-
+</div>
 
 
 <!-- Optional JavaScript -->
