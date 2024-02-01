@@ -65,9 +65,10 @@ INSTALLED_APPS = [
     'convertor',
     'mealrecipes',
      'users',
+     'calories_tracker',
      'bootstrap4',
      'expense_tracker',
-     'quiz'
+     'quiz',
 ]
 
 MIDDLEWARE = [
