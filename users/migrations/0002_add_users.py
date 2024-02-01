@@ -7,6 +7,7 @@ from django.db import migrations
 def insert_users(apps, schema_editor):
     User = apps.get_model('users', 'CustomUser')
     User.objects.create_superuser('satheesh22g', 'satheesh@gmail.com', 'satheesh22')
+    
 
 
 class Migration(migrations.Migration):
