@@ -49,4 +49,4 @@ urllib3==2.1.0
 uvicorn==0.25.0
 wrapt==1.16.0
 pytz
-docx2pdfs
+docx2pdf
