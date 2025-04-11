@@ -16,6 +16,10 @@
 
     },
     {
+      "matchCurrentVersion": "/^(?![0-9]+\\.[0-9]+(\\.[0-9]+)?$)/",
+      "automerge": false
+    },
+    {
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
     },
