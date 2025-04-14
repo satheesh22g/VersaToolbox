@@ -16,7 +16,7 @@
 
     },
     {
-      "matchCurrentVersion": "!/^\\d+\\.\\d+\\.\\d+$/",
+    "matchCurrentVersion": "10\\.2\\.0",
       "enabled": false
     },
     {
