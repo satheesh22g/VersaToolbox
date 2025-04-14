@@ -4,7 +4,7 @@ asgiref==3.7.2
 beautifulsoup4==4.12.2
 certifi==2023.11.17
 charset-normalizer==3.3.2
-click==8.1.7
+click==8.1.8
 colorama==0.4.6
 Deprecated==1.2.14
 Django==5.0
