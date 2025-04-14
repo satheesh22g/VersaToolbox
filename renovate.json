@@ -16,7 +16,7 @@
 
     },
     {
-    "matchCurrentVersion": "10\\.2\\.0",
+    "matchCurrentVersion": "^0\\.25\\.0$",
       "automerge": false
     },
     {
