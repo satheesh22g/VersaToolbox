@@ -31,7 +31,7 @@ pypng==0.20220715.0
 pytesseract==0.3.10
 python-dateutil==2.8.2
 pytube==15.0.0
-pytz==2023.3.post1
+pytz==2023.4
 qrcode==7.4.2
 requests==2.31.0
 scikit-learn==1.3.2
