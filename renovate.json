@@ -17,7 +17,7 @@
     },
     {
       "matchCurrentVersion": "!/^\\d+\\.\\d+\\.\\d+$/",
-      "automerge": false
+      "enabled": false
     },
     {
       "matchUpdateTypes": ["minor", "patch"],
