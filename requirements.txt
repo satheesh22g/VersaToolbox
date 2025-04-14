@@ -7,7 +7,7 @@ charset-normalizer==3.3.2
 click==8.1.7
 colorama==0.4.6
 Deprecated==1.2.14
-Django==5.0
+Django==5.2
 django-bootstrap4==23.4
 djangorestframework==3.14.0
 exceptiongroup==1.2.0
