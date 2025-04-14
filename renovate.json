@@ -17,7 +17,7 @@
     },
     {
     "matchCurrentVersion": "10\\.2\\.0",
-      "enabled": false
+      "automerge": false
     },
     {
       "matchUpdateTypes": ["minor", "patch"],
