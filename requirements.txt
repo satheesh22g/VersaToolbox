@@ -1,5 +1,5 @@
 aiofiles==23.2.1
-anyio==4.2.0
+anyio==4.9.0
 asgiref==3.7.2
 beautifulsoup4==4.12.2
 certifi==2023.11.17
