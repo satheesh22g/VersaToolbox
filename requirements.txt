@@ -3,7 +3,7 @@ anyio==4.9.0
 asgiref==3.8.1
 beautifulsoup4==4.13.4
 certifi==2023.11.17
-charset-normalizer==3.3.2
+charset-normalizer==3.4.1
 click==8.1.8
 colorama==0.4.6
 Deprecated==1.2.18
