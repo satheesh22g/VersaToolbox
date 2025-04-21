@@ -51,3 +51,81 @@ The project is not just about utility but also about community and collaboration
 
 Don't hesitate to ping me if you're interested in joining this exciting journey!
 
+
+## How to run
+
+### 1. Clone the Repository
+
+Clone the repository and navigate into the project directory:
+
+```bash
+git clone https://github.com/satheesh22g/VersaToolbox.git
+cd VersaToolbox
+```
+### 2. Install Poetry (if not already installed)
+
+If Poetry is not installed, follow the official installation guide:
+
+[Poetry Installation Guide](https://python-poetry.org/docs/#installation)
+
+For most systems (recommended), run:
+
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
+```
+### 3. Install Dependencies
+
+Once Poetry is installed, use it to install the project dependencies:
+
+```bash
+poetry install
+```
+
+### 4. Apply Database Migrations
+
+After installing the dependencies, run the following command to apply the database migrations:
+
+```bash
+poetry run python manage.py migrate
+```
+
+### 5. (Optional) Create a Superuser
+
+If you need to access the Django Admin Panel, you can create a superuser by running the following command:
+
+```bash
+poetry run python manage.py createsuperuser
+
+```
+You will be prompted to enter the following details for the superuser:
+
+- **Username**: The username you want to use for the admin account.
+- **Email address**: The email address for the superuser.
+- **Password**: The password for the superuser (you will need to enter it twice for confirmation).
+
+### 6. Run the Development Server
+
+To start the Django development server, use the following command:
+
+```bash
+poetry run python manage.py runserver
+```
+
+### 7. Open the App in Your Browser
+
+Now that the server is running, open your web browser and visit:
+
+[http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
+You should see the VersaToolbox app in your browser.
+
+### 8. Access the Django Admin Panel (Optional)
+
+If you created a superuser, you can log in to the Django Admin Panel by visiting:
+
+[http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+
+Use the superuser credentials you created to log in and manage the application.
+
+---
+
