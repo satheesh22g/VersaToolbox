@@ -59,11 +59,14 @@ uvicorn = "0.25.0"
 wrapt = "1.16.0"
 docx2pdf = "^0.1.8"
 
-
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
 pytest-django = "^4.11.1"
 pre-commit = "^4.2.0"
+
+# Disable package mode by setting `package-mode = false`
+[tool.poetry]
+package-mode = false
 
 [build-system]
 requires = ["poetry-core"]
