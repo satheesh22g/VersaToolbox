@@ -128,4 +128,8 @@ If you created a superuser, you can log in to the Django Admin Panel by visiting
 Use the superuser credentials you created to log in and manage the application.
 
 ---
+![GitHub Repo stars](https://img.shields.io/github/stars/satheesh22g/VersaToolbox?style=social)
+![GitHub forks](https://img.shields.io/github/forks/satheesh22g/VersaToolbox?style=social)
+![GitHub license](https://img.shields.io/github/license/satheesh22g/VersaToolbox)
+![GitHub last commit](https://img.shields.io/github/last-commit/satheesh22g/VersaToolbox)
 
