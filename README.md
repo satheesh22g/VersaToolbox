@@ -128,4 +128,20 @@ If you created a superuser, you can log in to the Django Admin Panel by visiting
 Use the superuser credentials you created to log in and manage the application.
 
 ---
+## Code Style
+
+This project uses:
+- [Black](https://github.com/psf/black) for code formatting.
+- [Ruff](https://github.com/astral-sh/ruff) for linting.
+
+Before pushing code, please install pre-commit hooks:
+
+```bash
+pre-commit install
+```
+Also run manually to clean the code:
+```bash
+pre-commit run --all-files
+```
+
 
