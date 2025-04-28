@@ -23,7 +23,7 @@ numpy==1.26.4
 packaging==23.2
 phonenumbers==9.0.3
 pikepdf==9.7.0
-pillow==10.2.0
+pillow==10.4.0
 PyMuPDF==1.23.11
 PyMuPDFb==1.23.9
 PyPDF2==3.0.1
