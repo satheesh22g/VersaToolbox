@@ -70,7 +70,7 @@
             border-radius: 10px;
             padding: 20px;
             margin-top: 60px;
-            
+
         }
         h1 {
             color: #007bff;
@@ -141,7 +141,7 @@
 
             // Send an asynchronous request to mark the message as read
             const csrftoken = document.head.querySelector('[name="csrf-token"]').content;
-            
+
 
             fetch(`/mark-as-read/${messageId}/`, {
                 method: 'POST',

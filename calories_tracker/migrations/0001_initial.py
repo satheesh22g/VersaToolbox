@@ -15,23 +15,35 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Food',
+            name="Food",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=100)),
-                ('carbs', models.FloatField()),
-                ('protein', models.FloatField()),
-                ('fats', models.FloatField()),
-                ('calories', models.IntegerField()),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=100)),
+                ("carbs", models.FloatField()),
+                ("protein", models.FloatField()),
+                ("fats", models.FloatField()),
+                ("calories", models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
-            name='Consume',
+            name="Consume",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('quantity', models.FloatField()),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('food_consumed', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='calories_tracker.food')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("quantity", models.FloatField()),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "food_consumed",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="calories_tracker.food",
+                    ),
+                ),
             ],
         ),
     ]

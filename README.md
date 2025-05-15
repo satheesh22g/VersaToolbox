@@ -110,4 +110,3 @@ pre-commit run --all-files
 ![GitHub forks](https://img.shields.io/github/forks/satheesh22g/VersaToolbox?style=social)
 ![GitHub license](https://img.shields.io/github/license/satheesh22g/VersaToolbox)
 ![GitHub last commit](https://img.shields.io/github/last-commit/satheesh22g/VersaToolbox)
-

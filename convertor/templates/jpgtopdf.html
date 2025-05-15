@@ -23,7 +23,7 @@
     <div>
         <h1 style="text-align: center;">Convert your images into a pdf</h1>
     </div>
-    
+
     <div>
         <form method="post" action="/jpgtopdf/" enctype="multipart/form-data">
             {% csrf_token %}
@@ -34,7 +34,7 @@
                 <label for="files">
                     <img src="{% static 'icons/upload.png' %}"/>
                 </label>
-    
+
                 <input id="files" type="file" name="files" accept="image/jpeg" multiple hidden/>
             </div>
             </br>
@@ -54,7 +54,7 @@
             </div>
             </br>
             </br>
-    
+
         </form>
     </div>
     </br>
@@ -63,9 +63,9 @@
         </br>
         <a style="margin:0 auto;display: block; width: 100px" type="button" class="btn btn-primary" href="../static/uploaded_files/jpg2pdf/{{ url }}/sample.txt" download="output.pdf">Download</a>
     {% endif %}
-    
+
     <div class="container quote-imgs-thumbs quote-imgs-thumbs--hidden" id="result" aria-live="polite"></div>
-    
+
 
 </div>
 

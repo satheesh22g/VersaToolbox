@@ -116,50 +116,50 @@
         <tr>
           <td>Country Code</td>
           <td>{{mobileno.country_code}}</td>
-      
+
         </tr>
         <tr>
           <td>Mobile Number</td>
           <td>{{mobileno.national_number}}</td>
-      
+
         </tr>
         <tr>
           <td>Carrier Name</td>
           <td>{{cr}}</td>
-      
+
         </tr>
         <tr>
           <td>Country</td>
           <td>{{country}}</td>
-      
+
         </tr>
         <tr>
             <td>Valid</td>
             <td>{{valid}}</td>
-        
+
           </tr>
           <tr>
             <td>Time Zone</td>
             <td>{{tz}}</td>
-        
+
           </tr>
       </table>
       <p> Note: These Details may not be accurate.</p>
       <a href="/mobile_number/">back</a>
     {% else %}
-    
+
         <div class="title">Fetch Phone Number Details</div>
         <form action="/mobile_number/" method="post">
             {% csrf_token %}
         <div class="input-container">
             <p> Enter Mobile Number with Country code</p>
             {{ form }}
-            
+
         </div>
         <input type="submit" value="Submit" class="submit-button" id="btnsubmit" onclick="submitForm()">
      </form>
     </div>
-    
+
     {% endif %}
 
 </body>

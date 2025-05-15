@@ -1,14 +1,19 @@
 # quiz/forms.py
 from django import forms
-from .models import QuizTaker,Quiz
+
+from .models import Quiz, QuizTaker
+
 
 class QuizTakerForm(forms.ModelForm):
     class Meta:
         model = QuizTaker
-        fields = ['user', 'quiz', 'score']
+        fields = ["user", "quiz", "score"]
 
 
 class QuizForm(forms.ModelForm):
     class Meta:
         model = Quiz
-        fields = ['title', 'category']  # Add any other fields you want to include in the form
+        fields = [
+            "title",
+            "category",
+        ]  # Add any other fields you want to include in the form

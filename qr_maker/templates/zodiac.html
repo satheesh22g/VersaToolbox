@@ -90,18 +90,18 @@
         <h2>{{ astro_sign }}</h2>
         <a href="/zodiac_sign/">back</a>
      {% else %}
-     
+
      <form action="/zodiac_sign/" method="post">
         {% csrf_token %}
     <div class="input-container">
-        
+
         {{ form.as_p }}
-        
+
     </div>
     <input type="submit" value="Submit" class="submit-button" id="btnsubmit" onclick="submitForm()">
  </form>
      {% endif %}
     </div>
-    
+
 </body>
 </html>

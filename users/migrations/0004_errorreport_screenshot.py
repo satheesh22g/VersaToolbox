@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0003_errorreport_feedback'),
+        ("users", "0003_errorreport_feedback"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='errorreport',
-            name='screenshot',
-            field=models.ImageField(blank=True, null=True, upload_to='error_screenshots/'),
+            model_name="errorreport",
+            name="screenshot",
+            field=models.ImageField(
+                blank=True, null=True, upload_to="error_screenshots/"
+            ),
         ),
     ]

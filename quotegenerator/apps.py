@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class QuotegeneratorConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'quotegenerator'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "quotegenerator"

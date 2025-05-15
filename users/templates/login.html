@@ -12,14 +12,14 @@
 
 <body>
     {% include 'nav.html' %}
-    
+
     {% if messages %}
     {% for message in messages %}
         <span class="msg-{{ message.tags }}">
         </span>
     {% endfor %}
 {% endif %}
-    
+
     {% include 'footer.html' %}
 
     <div class="container" style="margin-top: 5%;">
@@ -54,12 +54,12 @@
                     </form>
                 </div>
                 <div class="card-footer">
-                       
+
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
