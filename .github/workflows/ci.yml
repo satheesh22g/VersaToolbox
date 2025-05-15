@@ -30,19 +30,16 @@ jobs:
       POETRY_VIRTUALENVS_CREATE: false
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-          cache: 'poetry'
 
-      - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Install Poetry via pip
+        run: pip install poetry
 
-      - name: Verify Poetry installed
+      - name: Check Poetry version
         run: poetry --version
 
       - name: Install dependencies
