@@ -1,0 +1,35 @@
+name: Python CI
+
+on:
+  push:
+    branches:
+      - satheesh22g  # Trigger on push to the 'satheesh22g' branch
+  pull_request:
+    branches:
+      - satheesh22g  # Trigger on PRs targeting the 'satheesh22g' branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'  # You can specify the version you need
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+    - name: Install dependencies
+      run: |
+        poetry install
+
+    - name: Run tests
+      run: |
+        poetry run pytest  # Adjust to your testing command (e.g., `pytest` or `pytest --maxfail=1 --disable-warnings`)

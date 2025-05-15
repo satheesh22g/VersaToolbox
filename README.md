@@ -23,9 +23,9 @@ VersaToolbox offers a range of functionalities:
 
 ## Live Demo
 
-You can access the live demo of VersaToolbox [here](http://satheesh22g.pythonanywhere.com/dashboard/)
+You can access the live demo of VersaToolbox [here](https://versatoolbox.onrender.com/)
 
-**Note**: Please be aware that the hosted version is running on the free version of PythonAnywhere. Due to infrequent code updates and limited third-party access, some features may not work as expected. For example, the YouTube video downloader may not function in the hosted link, but it works in the local environment. In the future, I will explore alternative hosting options to improve functionality and access.
+**Note**: Please be aware that the hosted version is running on the free version of `Render`. Due to infrequent code updates and limited third-party access, some features may not work as expected. For example, the YouTube video downloader may not function in the hosted link, but it works in the local environment. In the future, I will explore alternative hosting options to improve functionality and access.
 
 
 Each utility is crafted to be user-friendly and efficient, making complex tasks simple. The project is continually evolving, and your expertise could be instrumental in taking VersaToolbox to new heights.
@@ -35,10 +35,6 @@ Each utility is crafted to be user-friendly and efficient, making complex tasks 
 
 - Django
 - Python
-- Pandas
-- NumPy
-- Pytube
-- Urlib
 
 
 ## Collaboration Invitation
@@ -50,4 +46,68 @@ Feel free to reach out if you'd like to collaborate, contribute, or have innovat
 The project is not just about utility but also about community and collaboration. Let's explore the endless possibilities together.
 
 Don't hesitate to ping me if you're interested in joining this exciting journey!
+
+
+## How to run
+
+### 1. Clone the Repository
+
+Clone the repository and navigate into the project directory:
+
+```bash
+git clone https://github.com/satheesh22g/VersaToolbox.git
+cd VersaToolbox
+```
+### 2. Install Poetry (if not already installed)
+
+If Poetry is not installed, follow the official installation guide:
+
+[Poetry Installation Guide](https://python-poetry.org/docs/#installation)
+
+### 3. Install Dependencies
+
+Once Poetry is installed, use it to install the project dependencies:
+
+```bash
+poetry install
+```
+
+### 4. Apply Database Migrations
+
+After installing the dependencies, run the following command to apply the database migrations:
+
+```bash
+poetry run python manage.py migrate
+```
+
+### 5. Run the Development Server
+
+To start the Django development server, use the following command:
+
+```bash
+poetry run python manage.py runserver
+```
+
+### 6. Open the App in Your Browser
+
+Now that the server is running, open your web browser and visit:
+
+[http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
+You should see the VersaToolbox app in your browser.
+
+Before pushing code, please install pre-commit hooks:
+
+```bash
+pre-commit install
+```
+Also run manually to clean the code:
+```bash
+pre-commit run --all-files
+```
+
+![GitHub Repo stars](https://img.shields.io/github/stars/satheesh22g/VersaToolbox?style=social)
+![GitHub forks](https://img.shields.io/github/forks/satheesh22g/VersaToolbox?style=social)
+![GitHub license](https://img.shields.io/github/license/satheesh22g/VersaToolbox)
+![GitHub last commit](https://img.shields.io/github/last-commit/satheesh22g/VersaToolbox)
 
