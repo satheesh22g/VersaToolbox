@@ -23,7 +23,7 @@ VersaToolbox offers a range of functionalities:
 
 ## Live Demo
 
-You can access the live demo of VersaToolbox [here](http://satheesh22g.pythonanywhere.com/dashboard/)
+You can access the live demo of VersaToolbox [here](https://versatoolbox.onrender.com/)
 
 **Note**: Please be aware that the hosted version is running on the free version of PythonAnywhere. Due to infrequent code updates and limited third-party access, some features may not work as expected. For example, the YouTube video downloader may not function in the hosted link, but it works in the local environment. In the future, I will explore alternative hosting options to improve functionality and access.
 
@@ -127,9 +127,25 @@ If you created a superuser, you can log in to the Django Admin Panel by visiting
 
 Use the superuser credentials you created to log in and manage the application.
 
----
+
 ![GitHub Repo stars](https://img.shields.io/github/stars/satheesh22g/VersaToolbox?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/satheesh22g/VersaToolbox?style=social)
 ![GitHub license](https://img.shields.io/github/license/satheesh22g/VersaToolbox)
 ![GitHub last commit](https://img.shields.io/github/last-commit/satheesh22g/VersaToolbox)
+
+## Code Style
+This project uses:
+- [Black](https://github.com/psf/black) for code formatting.
+- [Ruff](https://github.com/astral-sh/ruff) for linting.
+
+Before pushing code, please install pre-commit hooks:
+
+```bash
+pre-commit install
+```
+Also run manually to clean the code:
+```bash
+pre-commit run --all-files
+```
+
 
