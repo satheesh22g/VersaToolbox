@@ -40,7 +40,9 @@ jobs:
           cache: 'poetry'
 
       - name: Install Poetry
-        run: pip install poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: '1.8.1'  # or your preferred Poetry version
 
       - name: Configure Poetry cache
         uses: actions/cache@v3
@@ -57,12 +59,10 @@ jobs:
         run: poetry run python manage.py migrate
 
       - name: Run lint and formatting checks
-        run: |
-          poetry run pre-commit run --all-files
+        run: poetry run pre-commit run --all-files
 
       - name: Run tests with coverage
-        run: |
-          poetry run pytest --cov=versatoolbox --cov-report=xml
+        run: poetry run pytest --cov=versatoolbox --cov-report=xml
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
