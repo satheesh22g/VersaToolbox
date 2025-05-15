@@ -16,6 +16,8 @@ coverage.xml
 *.cover
 *.py,cover
 
+# virtual env
+versatool_env/
 
 # Pytest cache directory
 .cache/
