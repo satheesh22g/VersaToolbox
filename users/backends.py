@@ -1,7 +1,9 @@
 # users/backends.py
 
 from django.contrib.auth.backends import ModelBackend
+
 from .models import CustomUser
+
 
 class CustomUserAuthentication(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):

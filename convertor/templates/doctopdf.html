@@ -23,7 +23,7 @@
         <div>
             <h1 style="text-align: center;">Convert your DOCX files into PDF</h1>
         </div>
-    
+
         <div>
             <form method="post" action="/doctopdf/" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -34,7 +34,7 @@
                     <label for="files">
                         <img src="{% static 'icons/upload.png' %}"/>
                     </label>
-    
+
                     <input id="files" type="file" name="files" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple hidden/>
                 </div>
                 </br>
@@ -58,10 +58,10 @@
             </br>
             <a style="margin:0 auto;display: block; width: 100px" type="button" class="btn btn-primary" href="../static/uploaded_files/doc2pdf/{{ url }}/converted_file.pdf" download="converted_file.pdf">Download PDF</a>
         {% endif %}
-    
+
         <div class="container quote-imgs-thumbs quote-imgs-thumbs--hidden" id="result" aria-live="polite"></div>
-    
-    
+
+
 
         </div>
 

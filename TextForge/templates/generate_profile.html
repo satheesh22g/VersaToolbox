@@ -48,7 +48,7 @@
                 </form>
             </div>
         </div>
-        
+
         {% if profile %}
         <h2 class="mt-4">Profile Information</h2>
         <table class="table table-bordered">
@@ -60,7 +60,7 @@
             {% endfor %}
         </table>
         {% endif %}
-        
+
         {% if address %}
         <h2 class="mt-4">Address Information</h2>
         <table class="table table-bordered">
@@ -74,7 +74,7 @@
         {% else %}
             <p class="mt-4">No Address Information Available</p>
         {% endif %}
-        
+
         {% if profile or address %}
             <textarea id="generatedText" class="form-control d-none" rows="5" readonly>
                 {% if profile %}

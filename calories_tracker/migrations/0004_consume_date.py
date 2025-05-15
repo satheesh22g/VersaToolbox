@@ -7,14 +7,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('calories_tracker', '0003_alter_consume_food_consumed_alter_consume_quantity'),
+        ("calories_tracker", "0003_alter_consume_food_consumed_alter_consume_quantity"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='consume',
-            name='date',
-            field=models.DateField(auto_now_add=True, default=django.utils.timezone.now),
+            model_name="consume",
+            name="date",
+            field=models.DateField(
+                auto_now_add=True, default=django.utils.timezone.now
+            ),
             preserve_default=False,
         ),
     ]

@@ -65,6 +65,8 @@ pytest = "^8.3.5"
 pytest-django = "^4.11.1"
 pre-commit = "^4.2.0"
 pytest-cov = "^4.0.0"
+types-pytz = "^2025.2.0.20250326"
+types-requests = "^2.32.0.20250515"
 
 
 [build-system]

@@ -3,17 +3,15 @@
 from django.db import migrations
 
 
-
 def insert_users(apps, schema_editor):
-    User = apps.get_model('users', 'CustomUser')
-    User.objects.create_superuser('satheesh22g', 'satheesh@gmail.com', 'satheesh22')
-    
+    User = apps.get_model("users", "CustomUser")
+    User.objects.create_superuser("satheesh22g", "satheesh@gmail.com", "satheesh22")
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
     operations = [

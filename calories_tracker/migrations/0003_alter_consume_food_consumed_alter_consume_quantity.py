@@ -7,18 +7,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('calories_tracker', '0002_auto_20240201_0014'),
+        ("calories_tracker", "0002_auto_20240201_0014"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='consume',
-            name='food_consumed',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='calories_tracker.food'),
+            model_name="consume",
+            name="food_consumed",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="calories_tracker.food"
+            ),
         ),
         migrations.AlterField(
-            model_name='consume',
-            name='quantity',
+            model_name="consume",
+            name="quantity",
             field=models.FloatField(default=1.0),
         ),
     ]

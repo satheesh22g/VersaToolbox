@@ -1,6 +1,5 @@
-from django.db import models
-from django.contrib.auth.models import User
 from django.conf import settings
+from django.db import models
 
 
 class Food(models.Model):
@@ -13,7 +12,8 @@ class Food(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+
 class Consume(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

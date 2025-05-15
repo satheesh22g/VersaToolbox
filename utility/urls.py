@@ -14,25 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path
 
 urlpatterns = [
     path("", include("qr_maker.urls")),
-    path("", include('extract.urls')), 
-    path('', include('plagiarism.urls')),
-    path("", include('api.urls')),
-    path("", include('fetch_data.urls')),
-    path("", include('TextForge.urls')),
-    path("", include('quotegenerator.urls')),
-    path("", include('mealrecipes.urls')),
-    path("", include('convertor.urls')),
-    path("", include('users.urls')),
-    path("", include('expense_tracker.urls')),
-    path("", include('calories_tracker.urls')),
-    path("", include('quiz.urls')),
+    path("", include("extract.urls")),
+    path("", include("plagiarism.urls")),
+    path("", include("api.urls")),
+    path("", include("fetch_data.urls")),
+    path("", include("TextForge.urls")),
+    path("", include("quotegenerator.urls")),
+    path("", include("mealrecipes.urls")),
+    path("", include("convertor.urls")),
+    path("", include("users.urls")),
+    path("", include("expense_tracker.urls")),
+    path("", include("calories_tracker.urls")),
+    path("", include("quiz.urls")),
     # path("", include('worldclock.urls')),
     path("admin/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
