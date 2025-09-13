@@ -10,12 +10,10 @@ from django.views.generic import View
 from django.http import HttpResponse
 from django.views import View
 
-# youtuble
-
-from pytube import YouTube
-from pytube.exceptions import RegexMatchError, VideoUnavailable
-from django.http import StreamingHttpResponse
-from pytube import YouTube
+# youtube
+from django.shortcuts import render
+from django.views import View
+from yt_dlp import YoutubeDL
 import requests
 
 def index(request):
@@ -26,9 +24,7 @@ def dashboard(request):
 
 def qr(request):
     if request.method == "POST":
-        # create a form instance and populate it with data from the request:
         form = QRForm(request.POST)
-        # check whether it's valid:
         if form.is_valid():
             url = form.cleaned_data["url"]
             qr_img = qrcode.make(url)
@@ -51,9 +47,7 @@ def mobile_number(request):
     valid = None
     try:
         if request.method == "POST":
-            # create a form instance and populate it with data from the request:
             form = MobileForm(request.POST)
-            # check whether it's valid:
             if form.is_valid():
                 number = "+"+str(form.cleaned_data["number"])
                 print(number)
@@ -76,9 +70,7 @@ def mobile_number(request):
 def zodiac_sign(request):
     astro_sign=None
     if request.method == "POST":
-        # create a form instance and populate it with data from the request:
         form = ZodiacForm(request.POST)
-        # check whether it's valid:
         if form.is_valid():
             date_input = form.cleaned_data["date_input"]
             day = int(date_input.strftime("%d"))
@@ -114,11 +106,12 @@ def zodiac_sign(request):
 
 def cricket(request):
     live_matches=['8746rtur']
-    page = requests.get('http://static.cricinfo.com/rss/livescores.xml') # HTTP Get request to cricinfo rss feed
+    page = requests.get('http://static.cricinfo.com/rss/livescores.xml') 
     soup = BeautifulSoup(page.text,'lxml')
-    matches = soup.find_all('description') # description tags contain the score
+    matches = soup.find_all('description')
     live_matches = [s.get_text() for s in matches if '*' in s.get_text()]
     return render(request, "cricket.html",{"live_matches":live_matches})
+
 
 
 class YTDownloader(View):
@@ -126,46 +119,65 @@ class YTDownloader(View):
         self.url = url
 
     def get(self, request):
-        return render(request, 'ytdownloader.html')
+        return render(request, "ytdownloader.html")
 
     def post(self, request):
         try:
-            if 'fetch-vid' in request.POST:
-                self.url = request.POST.get('given_url')
-                video = YouTube(self.url)
-                vid_title, vid_thumbnail = video.title, video.thumbnail_url
-                qual, stream = [], []
-                for vid in video.streams.filter(progressive=True):
-                    qual.append(vid.resolution)
-                    stream.append(vid)
-                context = {'vid_title': vid_title, 'vid_thumbnail': vid_thumbnail,
-                           'qual': qual, 'stream': stream,
-                           'url': self.url}
-                return render(request, 'ytdownloader.html', context)
+            if "fetch-vid" in request.POST:
+                self.url = request.POST.get("given_url")
 
-            elif 'download-vid' in request.POST:
-                self.url = request.POST.get('given_url')
-                video = YouTube(self.url)
-                video_qual = video.streams[int(request.POST.get('download-vid')) - 1]
+                ydl_opts = {"quiet": True, "noplaylist": True}
+                with YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(self.url, download=False)
 
-                # Sanitize the video title for use as a file name
-                title = ''.join(c if c.isalnum() or c in [' ', '_'] else '' for c in video.title)
-                title = title.replace(' ', '_')
+                formats = [
+                    {
+                        "format_id": f.get("format_id"),
+                        "resolution": f"{f.get('height')}p" if f.get("height") else "audio",
+                        "filesize": f.get("filesize"),
+                    }
+                    for f in info.get("formats", [])
+                    if f.get("ext") == "mp4" and (f.get("height") or f.get("acodec"))
+                ]
 
-                # Download the video content using requests
-                video_data = requests.get(video_qual.url).content
+                context = {
+                    "vidTitle": info.get("title"),
+                    "vidThumbnail": info.get("thumbnail"),
+                    "formats": formats,
+                    "url": self.url,
+                }
+                return render(request, "ytdownloader.html", context)
 
-                # Prepare the file for download using StreamingHttpResponse
-                response = StreamingHttpResponse([video_data], content_type='application/octet-stream')
-                response['Content-Disposition'] = f'attachment; filename="{title}.mp4"'
-                return response
+            elif "download-vid" in request.POST:
+                self.url = request.POST.get("given_url")
+                format_id = request.POST.get("download-vid")
 
-        except (RegexMatchError, VideoUnavailable) as e:
-            context = {'message': f"Error: {str(e)}. Try again!!!"}
-            return render(request, 'ytdownloader.html', context)
+                ydl_opts = {"quiet": True, "noplaylist": True}
+                with YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(self.url, download=False)
 
-        return render(request, 'ytdownloader.html')
+                selected_format = next(
+                    (f for f in info.get("formats", []) if str(f.get("format_id")) == str(format_id)),
+                    None,
+                )
 
+                if not selected_format:
+                    context = {"message": "Format not found"}
+                    return render(request, "ytdownloader.html", context)
+
+                direct_url = selected_format.get("url")
+
+                context = {
+                    "vidTitle": info.get("title"),
+                    "direct_url": direct_url,
+                }
+                return render(request, "ytdownloader.html", context)
+
+        except Exception as e:
+            context = {"message": f"Error: {str(e)}"}
+            return render(request, "ytdownloader.html", context)
+
+        return render(request, "ytdownloader.html")
 
 def about(request):
     return render(request, "about.html")
