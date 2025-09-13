@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,102 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zodiac Calculator</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(45deg, #f0f0f0, #d1d1d1);
-            background-size: 400% 400%;
-            animation: gradientAnimation 10s infinite alternate;
-        }
-
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 0%;
-            }
-            100% {
-                background-position: 100% 100%;
-            }
-        }
-
-        .content {
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            top: -40px;
-        }
-
-        .title {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .input-container {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .input-field {
-            padding: 10px;
-            width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .input-field:hover {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .submit-button {
-            padding: 10px 20px;
-            background-color: #0074D9;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .submit-button:hover {
-            background-color: #0056b3;
-        }
-
-        .submit-button:focus {
-            outline: none;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'qr_maker/css/zodiac.css' %}">
 </head>
 <body>
-    {% include 'nav.html' %}
-    <div class="content">
-        <div class="title">Know Your Zodiac Sign</div>
+      {% include 'nav.html' %}
+    <div class="card-container">
+        <div class="card-title">Know Your Zodiac Sign</div>
+
         {% if astro_sign %}
-        <h2>{{ astro_sign }}</h2>
-        <a href="/zodiac_sign/">back</a>
-     {% else %}
-     
-     <form action="/zodiac_sign/" method="post">
-        {% csrf_token %}
-    <div class="input-container">
-        
-        {{ form.as_p }}
-        
+            <div class="zodiac-display">
+                <img src="{{ icon_url }}" alt="{{ astro_sign }} Icon" class="zodiac-icon">
+                <div class="zodiac-name">{{ astro_sign }}</div>
+            </div>
+            <a href="{% url 'zodiac_sign' %}" class="back-link">Back</a>
+        {% else %}
+            <form method="post">
+                {% csrf_token %}
+                <input type="date" name="birthdate" class="form-input" required>
+                <button type="submit" class="submit-button">Submit</button>
+            </form>
+        {% endif %}
     </div>
-    <input type="submit" value="Submit" class="submit-button" id="btnsubmit" onclick="submitForm()">
- </form>
-     {% endif %}
-    </div>
-    
 </body>
 </html>

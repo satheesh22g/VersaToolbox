@@ -1,68 +1,39 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Converter</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap CSS link -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(45deg, #f0f0f0, #d1d1d1);
-            background-size: 400% 400%;
-            animation: gradientAnimation 10s infinite alternate;
-        }
-
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 0%;
-            }
-            100% {
-                background-position: 100% 100%;
-            }
-        }
-
-        .content {
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            top: -40px;
-            max-width: 500px; /* Added max-width for better responsiveness */
-            width: 100%; /* Ensure full width on smaller screens */
-        }
-
-        .title {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        /* Other styles remain the same */
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QR Code Converter</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'qr_maker/css/qr.css' %}">
 </head>
 <body>
-    {% include 'nav.html' %}
-    <div class="content">
-        <div class="title">QR Code Converter</div>
-        <form action="/qr/" method="post">
-            {% csrf_token %}
-            <div class="form-group input-container">
-                {{ form.media }}
-                {{ form }}
-            </div>
-            <button type="submit" class="btn btn-primary submit-button">Submit</button>
-        </form>
-    </div>
+  {% include 'nav.html' %}
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Bootstrap JS link -->
+  <div class="container mt-5">
+    <div class="card-container">
+      {% if message %}
+        <div class="alert alert-danger" role="alert">
+          {{ message }}
+        </div>
+      {% endif %}
+
+   
+       
+
+        <div class="card-title">Generate QR Code</div>
+        <form action="/qr/" method="post">
+          {% csrf_token %}
+          <div class="input-container">
+            {{ form }}
+          </div>
+          <button type="submit" class="submit-button">Generate QR Code</button>
+        </form>
+        <p class="note">Note: The QR code is generated from the entered text.</p>
+        <a href="/dashboard/" class="back-link">← Back</a>
+    </div>
+  </div>
+
 </body>
 </html>

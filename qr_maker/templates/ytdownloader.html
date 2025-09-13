@@ -1,106 +1,62 @@
-
-
+{% load static %}
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>YT Vedio Downloader</title>
-    <style>
-        html {
-            height: 100%;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            box-sizing: inherit;
-            position: relative;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-size: 400% 400%;
-            animation: gradientAnimation 10s infinite alternate;
-        }
-
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 0%;
-            }
-
-            100% {
-                background-position: 100% 100%;
-            }
-        }
-
-        .content {
-            padding-top: 8%;
-
-        }
-
-        .title {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: rgb(195, 221, 248);
-            /* Set your preferred background color */
-            padding: 10px;
-            text-align: center;
-        }
-    </style>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YouTube Video Downloader</title>
+  <link rel="stylesheet" href="{% static 'qr_maker/css/youtube.css' %}">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-{% include 'nav.html' %}
+<body>
+  {% include 'nav.html' %}
 
-<body style="align-items: center;text-align: center;height: fit-content;">
+  <div class="container mt-4">
+    <div class="card-container">
+      <div class="card-title">YouTube Video Downloader</div>
 
-
-
-
-    <div class="content">
-
-        <div class="title">YouTube Vedio Downloader</div>
-
+      <form method="post" action="">
+        {% csrf_token %}
         <div class="input-container">
-            <form method="post" action="">
-                {% csrf_token %}
-                <!-- for fetching the video -->
-                <input type="text" name="given_url" value="{{url}}" placeholder="enter url.." required>
-                <button type="submit" name="fetch-vid" value="fetch-vid">Proceed</button>
-                {{ message }}
-
-                <br>
-                <h3>{{vidTitle}}</h3>
-                <img width="auto" height="auto" src="{{vidThumbnail}}" />
-                <br>
-
-                <!-- for downloading the video -->
-                <div style="margin-bottom: 20%;">
-                    {% for x in stream %}
-                    {{x.resolution}} <button type="submit" name="download-vid"
-                        value="{{forloop.counter}}">Download</button>|
-                    {% endfor %}
-                </div>
-                <br><br>
-            </form>
+          <input type="text" name="given_url" value="{{url}}" placeholder="Enter YouTube URL..." required class="input-field">
         </div>
-    </div>
-    <div class="footer">
-        <p>This YouTube video downloader is hosted on PythonAnywhere's free version, which has limitations that may
-            prevent it from accessing third-party websites like YouTube. As a result, this app may not work properly in
-            its current state.<br>
-            In the future, I plan to upgrade to a paid version of PythonAnywhere to make this app fully functional.
-            Thank you for your understanding.</p>
+        <button type="submit" name="fetch-vid" value="fetch-vid" class="submit-button">Fetch Video</button>
 
+        {% if message %}
+          <div class="alert alert-info mt-3">{{ message }}</div>
+        {% endif %}
+
+        {% if vidTitle %}
+          <h5 class="mt-4">{{ vidTitle }}</h5>
+          <img src="{{ vidThumbnail }}" alt="Video Thumbnail" class="img-fluid rounded mb-3"/>
+
+          <div>
+            {% for f in formats %}
+              <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="given_url" value="{{ url }}">
+                <button type="submit" name="download-vid" value="{{ f.format_id }}" class="download-btn">
+                  {{ f.resolution }}
+                  {% if f.filesize %} ({{ f.filesize|filesizeformat }}){% endif %}
+                </button>
+              </form>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if direct_url %}
+          <div class="mt-4">
+            <a href="{{ direct_url }}" target="_blank" download class="download-btn">
+              ⬇ Download Now
+            </a>
+          </div>
+        {% endif %}
+      </form>
+
+      <p class="note mt-4">
+        Note: Direct download links are signed by YouTube and expire after a few hours.
+      </p>
     </div>
+  </div>
 </body>
-
 </html>
