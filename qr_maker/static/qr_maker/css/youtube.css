@@ -1,0 +1,79 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+    background-size: 400% 400%;
+    animation: backgroundMove 15s infinite alternate;
+    padding-top: 50px;
+}
+@keyframes backgroundMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+.card-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+.card-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+.input-container { margin-bottom: 1.5rem; }
+.input-field {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    transition: 0.3s ease;
+}
+.input-field:focus {
+    border-color: #66a6ff;
+    box-shadow: 0px 0px 8px rgba(102, 166, 255, 0.5);
+}
+.submit-button {
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(90deg, #66a6ff, #89f7fe);
+    border: none;
+    border-radius: 0.5rem;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+.submit-button:hover {
+    background: linear-gradient(90deg, #89f7fe, #66a6ff);
+    transform: translateY(-2px);
+    box-shadow: 0px 8px 20px rgba(102, 166, 255, 0.5);
+}
+.download-btn {
+    margin: 5px;
+    padding: 0.5rem 1rem;
+    background: #66a6ff;
+    color: white;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+}
+.download-btn:hover { background: #0056b3; text-decoration: none; }
+.note {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 1rem;
+}

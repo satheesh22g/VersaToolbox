@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,111 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mobile Number Lookup</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
-      background-size: 400% 400%;
-      animation: backgroundMove 15s infinite alternate;
-      padding-top: 50px; /* Push content below the navbar */
-    }
-
-    @keyframes backgroundMove {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-
-    .card-container {
-      background: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      width: 100%;
-      max-width: 450px;
-      margin: 0 auto;
-    }
-
-    .card-title {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 1.5rem;
-    }
-
-    .input-container {
-      margin-bottom: 1.5rem;
-    }
-
-    .input-field {
-      width: 100%;
-      padding: 0.8rem;
-      font-size: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 0.5rem;
-      transition: 0.3s ease;
-    }
-
-    .input-field:focus {
-      border-color: #66a6ff;
-      box-shadow: 0px 0px 8px rgba(102, 166, 255, 0.5);
-    }
-
-    .submit-button {
-      width: 100%;
-      padding: 0.8rem;
-      background: linear-gradient(90deg, #66a6ff, #89f7fe);
-      border: none;
-      border-radius: 0.5rem;
-      color: white;
-      font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.4s ease;
-    }
-
-    .submit-button:hover {
-      background: linear-gradient(90deg, #89f7fe, #66a6ff);
-      transform: translateY(-2px);
-      box-shadow: 0px 8px 20px rgba(102, 166, 255, 0.5);
-    }
-
-    .result-table {
-      margin-top: 2rem;
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .result-table td {
-      padding: 0.8rem;
-      border-bottom: 1px solid #eee;
-      text-align: left;
-      color: #555;
-    }
-
-    .note {
-      font-size: 0.8rem;
-      color: #888;
-      margin-top: 1rem;
-    }
-
-    a.back-link {
-      display: inline-block;
-      margin-top: 1.5rem;
-      text-decoration: none;
-      color: #66a6ff;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    a.back-link:hover {
-      color: #0056b3;
-      text-decoration: underline;
-    }
-  </style>
+<link rel="stylesheet" href="{% static 'qr_maker/css/mobile_number.css' %}">
 </head>
 <body>
   {% include 'nav.html' %}
